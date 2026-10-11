@@ -1,65 +1,102 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
-  <!-- =====================================================================
-       ENTERPRISE METADATA & ACCESSIBILITY DIRECTIVES
-       Entity: N-Labs (Nitesh Inclusion Labs)
-       Directorate: Nitesh Kumar (Founder, CEO & Director)
-       Compliance Standards: W3C WCAG 2.0/2.1/2.2 (Level AAA) & WAI-ARIA 1.2
-       Page Scope: Dedicated Universal System Index & Portal Sitemap
-       Timestamp: Friday, October 9, 2026 - IST
-       ===================================================================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Universal Sitemap Index | N-Labs (Nitesh Inclusion Labs) - Complete Portal Map</title>
-  
-  <meta name="description" content="Comprehensive non-visual system index and sitemap for N-Labs. Rapidly discover and navigate all enterprise accessibility pages, tools, courses, and legal resources.">
-  <meta name="keywords" content="N-Labs Sitemap, Accessibility Portal Directory, Screen Reader Sitemap, WCAG Site Index, Nitesh Kumar System Map">
+
+  <!-- =====================================================================
+       ENTERPRISE METADATA & ACCESSIBILITY DIRECTIVES
+       Entity: InclusioTech
+       Founder & CEO: Nitesh Kumar
+       Conformance: W3C WCAG 2.0 / 2.1 / 2.2 (Level AAA) & WAI-ARIA 1.2
+       ===================================================================== -->
+  <title>HTML Sitemap | InclusioTech - Accessible Directory of Pages</title>
+  <meta name="title" content="HTML Sitemap | InclusioTech - Accessible Directory of Pages">
+  <meta name="description" content="Official accessible HTML sitemap for InclusioTech, founded by Nitesh Kumar. Direct navigation directory to all accessibility audit resources, training materials, and services.">
+  <meta name="keywords" content="InclusioTech Sitemap, Nitesh Kumar, InclusioTech Navigation, Digital Accessibility Portal, NVDA, TalkBack, WCAG Auditing Directory">
   <meta name="author" content="Nitesh Kumar">
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://inclusiotech.github.io/sitemap.html">
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://inclusiotech.github.io/sitemap.html">
+  <meta property="og:title" content="InclusioTech Sitemap | Accessible Web Architecture">
+  <meta property="og:description" content="Navigate all core practice areas, resources, and leadership profiles across InclusioTech.">
+  <meta property="og:site_name" content="InclusioTech">
+
+  <!-- Structured Schema: Breadcrumb & WebPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://inclusiotech.github.io/sitemap.html#webpage",
+        "url": "https://inclusiotech.github.io/sitemap.html",
+        "name": "InclusioTech Accessible Sitemap",
+        "description": "Complete navigation directory of InclusioTech digital ecosystem.",
+        "isPartOf": {
+          "@type": "WebSite",
+          "@id": "https://inclusiotech.github.io/#website",
+          "name": "InclusioTech",
+          "url": "https://inclusiotech.github.io/"
+        },
+        "author": {
+          "@type": "Person",
+          "name": "Nitesh Kumar",
+          "url": "https://inclusiotech.github.io/"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://inclusiotech.github.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Sitemap",
+            "item": "https://inclusiotech.github.io/sitemap.html"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 
   <!-- External Unified Stylesheet -->
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- =====================================================================
-       1. ACCESSIBLE SKIP LINKS (WCAG 2.4.1 BYPASS BLOCKS)
-       ===================================================================== -->
+  <!-- 1. ACCESSIBLE SKIP LINKS -->
   <nav class="skip-links-region" aria-label="Skip links">
     <a href="#main-content" class="skip-link">Skip to Main Content</a>
-    <a href="#menu-toggle-btn" class="skip-link">Skip to Website Navigation</a>
+    <a href="#sitemap-navigation" class="skip-link">Skip to Sitemap Directory</a>
     <a href="#footer-landmark" class="skip-link">Skip to Footer</a>
   </nav>
 
-  <!-- =====================================================================
-       2. TOP ENVIRONMENTAL TELEMETRY RIBBON
-       ===================================================================== -->
-  <div class="telemetry-ribbon" aria-label="Environmental live status">
+  <!-- 2. TELEMETRY RIBBON -->
+  <div class="telemetry-ribbon" aria-label="Live Status Banner">
     <div class="container ribbon-grid">
       <div class="ribbon-block">
-        <span id="live-greeting" class="ribbon-highlight">Good Afternoon | Welcome to N-Labs</span>
+        <span id="live-greeting" class="ribbon-highlight">InclusioTech Navigation Portal</span>
         <span class="divider" aria-hidden="true">|</span>
-        <span id="live-clock" tabindex="0">03:45:34 PM</span>
-      </div>
-      <div class="ribbon-block">
-        <span id="live-date" tabindex="0">Friday, 09 October 2026</span>
-      </div>
-      <div class="ribbon-block">
         <span id="live-location" tabindex="0">Patna, Bihar, India</span>
-        <span class="divider" aria-hidden="true">|</span>
-        <span id="live-weather" tabindex="0">29°C | Clear | AQI: 118</span>
       </div>
       <div class="ribbon-block ribbon-quote-box" aria-hidden="true">
-        <span class="quote-title">Thought: </span>
-        <span id="dynamic-quote" class="quote-text">Universal design makes independence an unconditional reality.</span>
+        <span class="quote-title">Design Principle: </span>
+        <span id="dynamic-quote" class="quote-text">Transparent navigation enables equal access for all users.</span>
       </div>
     </div>
   </div>
 
-  <!-- =====================================================================
-       3. CROSS-DISABILITY ACCESSIBILITY DISPLAY CONTROLS
-       ===================================================================== -->
+  <!-- 3. ACCESSIBILITY CONTROLS -->
   <div class="a11y-toolbar-region">
     <div class="container a11y-toolbar-flex">
       <span class="toolbar-title" id="toolbar-heading">Accessibility Aids:</span>
@@ -73,346 +110,99 @@
     </div>
   </div>
 
-  <!-- =====================================================================
-       4. HEADER LANDMARK (ROLE="BANNER")
-       ===================================================================== -->
+  <!-- 4. HEADER LANDMARK -->
   <header role="banner" class="site-header">
     <div class="container header-flex">
-      
-      <!-- Brand & Leadership Summary -->
       <div class="branding-group">
-        <h1 id="site-heading">
-          <span class="brand-title">N-Labs</span> 
-          <span class="brand-subtitle">(Nitesh Inclusion Labs)</span>
-        </h1>
-        <p class="brand-tagline">Universal Non-Visual System Index & Complete Architectural Sitemap</p>
-        
-        <button type="button" id="btn-profile-drawer" class="btn-drawer-toggle" aria-expanded="false" aria-controls="founder-profile-drawer">
-          <span id="drawer-toggle-text">Show Leadership Synopsis &darr;</span>
-        </button>
-
-        <div id="founder-profile-drawer" class="profile-drawer-content" hidden>
-          <div class="drawer-card">
-            <h3>Leadership & Identity Profile</h3>
-            <p><strong>Founder, CEO & Director:</strong> Nitesh Kumar</p>
-            <p><strong>System Architecture:</strong> 100% Visually Impaired, daily native screen reader user (NVDA, TalkBack, JAWS). The entire ecosystem structure is organized into a clean, predictable navigation hierarchy with zero dead links.</p>
-            <p><strong>Credentials:</strong> NAB Delhi DADCA, NIIT Career Edge IT (94%), Deque IAAP CPACC Track, Web Accessibility Fundamentals, and Accessible Document Specialist (ADS).</p>
-            <p><strong>Base:</strong> Dinkar Nagar, Dahi Bhatta, Masaurhi, Patna, Bihar, India (PIN: 804452).</p>
-            <p><a href="about.html" class="btn-link">Read Full Founder Journey on About Page &rarr;</a></p>
-          </div>
-        </div>
+        <p class="brand-title"><a href="index.html" style="text-decoration: none; color: inherit;">InclusioTech</a></p>
+        <p class="brand-tagline">Digital Accessibility, Screen Reader Enablement & Assistive Tech Directorate</p>
       </div>
 
-      <!-- Navigation & Header Search -->
-      <div class="header-menu-container">
-        
-        <form id="universal-search" role="search" aria-label="Universal Site Search" class="universal-search-form" onsubmit="event.preventDefault(); window.executeGlobalSearch();">
-          <label for="search-input" class="sr-only">Search all pages, courses, tools, and articles:</label>
-          <div class="search-input-group">
-            <input type="search" id="search-input" name="q" placeholder="Search entire portal..." required autocomplete="off">
-            <button type="submit" class="btn-search-submit">Search</button>
-          </div>
-        </form>
-
-        <button type="button" id="menu-toggle-btn" class="btn-menu-toggle" aria-expanded="false" aria-controls="global-dropdown-menu" aria-label="Open Website Main Navigation Menu">
-          <span class="menu-icon" aria-hidden="true">&#9776;</span>
-          <span class="menu-text">Website Menu</span>
-        </button>
-
-        <nav id="global-dropdown-menu" class="dropdown-menu-list" role="navigation" aria-label="Universal Site Pages" hidden>
-          <ul class="menu-items">
-            <li><a href="index.html" class="menu-link">1. Home Page</a></li>
-            <li><a href="about.html" class="menu-link">2. About N-Labs (Story, Vision, Mission)</a></li>
-            <li><a href="services.html" class="menu-link">3. Core Enterprise Services</a></li>
-            <li><a href="courses.html" class="menu-link">4. Professional Courses (₹99 & ₹299 Batches)</a></li>
-            <li><a href="tools.html" class="menu-link">5. Audit Engines & Tools</a></li>
-            <li><a href="articles.html" class="menu-link">6. Articles & Publications</a></li>
-            <li><a href="faq.html" class="menu-link">7. Frequently Asked Questions (FAQ)</a></li>
-            <li><a href="contact.html" class="menu-link">8. Contact, Inquiries & Feedback</a></li>
-            <li><a href="register.html" class="menu-link">9. Course Registration Portal</a></li>
-            <li><a href="auth.html" class="menu-link">10. Client Portal Access (Sign Up / Login)</a></li>
-            <li><a href="privacy.html" class="menu-link">11. Privacy Policy</a></li>
-            <li><a href="terms.html" class="menu-link">12. Terms of Use & Disclaimer</a></li>
-            <li><a href="sitemap.html" class="menu-link current-page" aria-current="page">13. Universal Sitemap Index</a></li>
-          </ul>
-        </nav>
+      <div class="header-contact-pills" aria-label="Quick contact links">
+        <a href="tel:+918434721287" class="pill-link" aria-label="Call InclusioTech">+91 8434721287</a>
+        <a href="https://www.linkedin.com/in/Nitesh-Kumar-InclusioTech" target="_blank" rel="noopener noreferrer" class="pill-link" aria-label="LinkedIn Profile">LinkedIn Profile</a>
       </div>
-
     </div>
+
+    <!-- Primary Nav -->
+    <nav class="main-nav" aria-label="Primary Navigation">
+      <div class="container nav-container">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li><a href="index.html#founder-section" class="nav-link">Founder Profile</a></li>
+          <li><a href="index.html#services-section" class="nav-link">Services</a></li>
+          <li><a href="sitemap.html" class="nav-link active" aria-current="page">Sitemap</a></li>
+          <li><a href="#footer-landmark" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
   </header>
 
-  <!-- =====================================================================
-       5. MAIN PAGE LAYOUT: TWO-COLUMN ENTERPRISE GRID
-       ===================================================================== -->
-  <div class="container page-layout">
-
-    <!-- ===================================================================
-         MAIN LANDMARK (ROLE="MAIN")
-         Contains: Overview and Categorized Semantic Portal Index.
-         =================================================================== -->
-    <main id="main-content" role="main" tabindex="-1">
-
-      <section class="card">
-        <h2>Universal Portal Directory & Sitemap</h2>
-        <p>
-          Welcome to the structural index of <strong>N-Labs (Nitesh Inclusion Labs)</strong>. 
-          This sitemap provides an exhaustive, keyboard-operable, and screen reader-friendly hierarchy of all 13 standalone pages 
-          within our enterprise digital ecosystem.
-        </p>
-        <p>
-          Designed in accordance with <strong>WCAG 2.4.5 (Multiple Ways)</strong>, this index allows users to locate resources 
-          instantly without relying solely on traditional menu bars or search algorithms.
-        </p>
-      </section>
-
-      <!-- SECTION 1: CORE PORTAL & LEADERSHIP -->
-      <section class="card">
-        <h2>1. Directorate & Core Mission</h2>
-        <p>Foundational pages establishing institutional mandates, lived leadership, and organizational philosophy:</p>
-        
-        <ul class="clean-bullet-list">
-          <li>
-            <strong><a href="index.html" class="btn-read-more">Home Page (index.html)</a>:</strong>
-            Executive introduction, real-time update notifications, synthesized credentials table, and core gateways.
-          </li>
-          <li>
-            <strong><a href="about.html" class="btn-read-more">About N-Labs (about.html)</a>:</strong>
-            Comprehensive biography of founder Nitesh Kumar, lived non-visual operational perspective, strategic vision, and 3-point mission.
-          </li>
-        </ul>
-      </section>
-
-      <!-- SECTION 2: SERVICES & TESTING UTILITIES -->
-      <section class="card">
-        <h2>2. Enterprise Services & Audit Engines</h2>
-        <p>Commercial consulting, manual audits, document remediation, and interactive browser-based testing engines:</p>
-        
-        <ul class="clean-bullet-list">
-          <li>
-            <strong><a href="services.html" class="btn-read-more">Enterprise Services (services.html)</a>:</strong>
-            Full details on Web & Mobile WCAG Audits, PDF/UA (ISO 14289) Remediation, Technical ARIA Engineering, Corporate SOPs, and Native Assistive UAT.
-          </li>
-          <li>
-            <strong><a href="tools.html" class="btn-read-more">Audit Engines & Tools (tools.html)</a>:</strong>
-            Interactive client-side utilities: Live URL scanner, HTML component inspector, document remediation tree auditor, color contrast verifier, and ARIA landmark checker.
-          </li>
-        </ul>
-      </section>
-
-      <!-- SECTION 3: ACADEMIES & REGISTRATION -->
-      <section class="card">
-        <h2>3. Training Academies & Student Admissions</h2>
-        <p>Inclusive technical education taught in Hindi via Google Meet for visually impaired students and aspiring auditors:</p>
-        
-        <ul class="clean-bullet-list">
-          <li>
-            <strong><a href="courses.html" class="btn-read-more">Professional Courses (courses.html)</a>:</strong>
-            Comprehensive syllabi for Course 1: Complete Web Development Basics (₹99) and Course 2: Digital Accessibility Auditor Masterclass (₹299).
-          </li>
-          <li>
-            <strong><a href="register.html" class="btn-read-more">Course Registration Portal (register.html)</a>:</strong>
-            Official student enrollment form with batch time selection, assistive tech preferences, and direct email dispatch.
-          </li>
-        </ul>
-      </section>
-
-      <!-- SECTION 4: KNOWLEDGE BASE & OUTREACH -->
-      <section class="card">
-        <h2>4. Knowledge Base, Guidance & Direct Contact</h2>
-        <p>Technical research papers, practical testing templates, institutional FAQs, and multi-purpose communication forms:</p>
-        
-        <ul class="clean-bullet-list">
-          <li>
-            <strong><a href="articles.html" class="btn-read-more">Articles & Publications (articles.html)</a>:</strong>
-            5 master technical publications: Web Accessibility Laws & ROI, Enterprise Jira Bug Reporting, Manual NVDA Auditing, PDF/UA Remediation, and WAI-ARIA Best Practices.
-          </li>
-          <li>
-            <strong><a href="faq.html" class="btn-read-more">Frequently Asked Questions (faq.html)</a>:</strong>
-            Detailed answers regarding audit turnaround times, manual testing protocols, document tagging, and course logistics.
-          </li>
-          <li>
-            <strong><a href="contact.html" class="btn-read-more">Contact & Feedback Center (contact.html)</a>:</strong>
-            Unified portal for enterprise audit inquiries, student admission questions, platform accessibility bug reports, and user feedback.
-          </li>
-        </ul>
-      </section>
-
-      <!-- SECTION 5: ACCESS & LEGAL GOVERNANCE -->
-      <section class="card">
-        <h2>5. Client Authentication & Legal Governance</h2>
-        <p>Secure repositories, data protection statements, and institutional terms of engagement:</p>
-        
-        <ul class="clean-bullet-list">
-          <li>
-            <strong><a href="auth.html" class="btn-read-more">Client Portal Access (auth.html)</a>:</strong>
-            Accessible tabbed portal for authorized client login and new organization registration to access proprietary reports.
-          </li>
-          <li>
-            <strong><a href="privacy.html" class="btn-read-more">Privacy Policy (privacy.html)</a>:</strong>
-            Full disclosure regarding client confidentiality, zero third-party tracking, and local session telemetry retention.
-          </li>
-          <li>
-            <strong><a href="terms.html" class="btn-read-more">Terms of Use & Legal Disclaimer (terms.html)</a>:</strong>
-            Usage terms, intellectual property protections, educational licensing, and compliance disclaimers.
-          </li>
-          <li>
-            <strong><a href="sitemap.html" class="btn-read-more">Universal Sitemap Index (sitemap.html)</a>:</strong>
-            This comprehensive structural index and navigation directory.
-          </li>
-        </ul>
-      </section>
-
-      <!-- Dynamic Search Results Display Container -->
-      <section id="search-results-panel" class="card" style="display:none;">
-        <h2>Universal Site Search Results</h2>
-        <div id="search-results-container" role="region" aria-live="polite"></div>
-        <button type="button" class="btn-search-close" onclick="document.getElementById('search-results-panel').style.display='none';">Close Search Results</button>
-      </section>
-
-    </main>
-    <!-- END MAIN LANDMARK -->
-
-    <!-- ===================================================================
-         COMPLEMENTARY LANDMARK (ROLE="COMPLEMENTARY")
-         Supporting sidebar content: Direct search, system version, quick actions.
-         =================================================================== -->
-    <aside id="complementary-section" role="complementary" aria-label="System Architecture and Navigation Assistance">
+  <!-- 5. MAIN SITEMAP DIRECTORY -->
+  <main id="main-content" role="main" class="main-content-region">
+    <div class="container">
       
-      <!-- Box 1: Directory Metrics -->
-      <section class="card">
-        <h3>System Metrics</h3>
-        <ul class="clean-bullet-list">
-          <li><strong>Total Indexed Pages:</strong> 13 Dedicated Portals</li>
-          <li><strong>Accessibility Rating:</strong> WCAG 2.2 Level AAA</li>
-          <li><strong>Navigation Mode:</strong> Semantic APG Hierarchy</li>
-          <li><strong>Framework:</strong> 100% Vanilla HTML5 / CSS / JS</li>
-        </ul>
-      </section>
+      <header class="section-header">
+        <h1>Accessible Website Sitemap</h1>
+        <p>A comprehensive, screen reader optimized directory of all public pages, tools, and technical documentation published by InclusioTech.</p>
+      </header>
 
-      <!-- Box 2: Quick Jump -->
-      <section class="card">
-        <h3>Primary Portals</h3>
-        <p>Direct routes to key system resources:</p>
-        <ul class="clean-bullet-list">
-          <li><a href="index.html">Master Home Portal</a></li>
-          <li><a href="services.html">5 Enterprise Services</a></li>
-          <li><a href="courses.html">Training Academies (₹99 & ₹299)</a></li>
-          <li><a href="tools.html">5 Live Audit Engines</a></li>
-          <li><a href="contact.html">Connect with the Directorate</a></li>
-        </ul>
-      </section>
+      <div id="sitemap-navigation" class="sitemap-grid" style="display: grid; gap: 2rem; margin-top: 2rem;">
+        
+        <!-- Section 1: Core Portal Pages -->
+        <section class="section-card" aria-labelledby="core-pages-heading">
+          <h2 id="core-pages-heading">1. Core Platform Pages</h2>
+          <ul style="line-height: 2;">
+            <li><a href="index.html"><strong>Home Portal (index.html)</strong></a> - The primary gateway detailing InclusioTech's mission, leadership overview, and practice areas.</li>
+            <li><a href="about.html"><strong>About InclusioTech (about.html)</strong></a> - Detailed background of the founder Nitesh Kumar, vision, assistive technology background, and community engagement.</li>
+            <li><a href="services.html"><strong>Services & Practice Areas (services.html)</strong></a> - Overview of WCAG compliance auditing, PDF remediation, and enterprise consulting.</li>
+            <li><a href="contact.html"><strong>Contact & Engagement (contact.html)</strong></a> - Direct contact channels, consultation booking, and official social handles.</li>
+            <li><a href="sitemap.html" aria-current="page"><strong>Accessible HTML Sitemap (sitemap.html)</strong></a> - Current directory page.</li>
+          </ul>
+        </section>
 
-      <!-- Box 3: Verification Note -->
-      <section class="card">
-        <h3>Non-Visual Navigation</h3>
-        <p>Every link in this sitemap conforms strictly to <strong>WCAG 2.4.4 (Link Purpose in Context)</strong> and announces descriptive target destinations.</p>
-      </section>
+        <!-- Section 2: Technical & Specialized Resource Pages -->
+        <section class="section-card" aria-labelledby="resources-heading">
+          <h2 id="resources-heading">2. Specialized Training & Accessibility Hubs</h2>
+          <ul style="line-height: 2;">
+            <li><a href="audits.html"><strong>Digital Accessibility Auditing (audits.html)</strong></a> - Methodology for manual screen reader evaluations (NVDA, TalkBack) and keyboard navigability.</li>
+            <li><a href="training.html"><strong>Assistive Technology Training (training.html)</strong></a> - Curriculum outlines for screen reader digital literacy, office productivity, and vocational training.</li>
+            <li><a href="wcag.html"><strong>WCAG 2.1 & 2.2 Standards Hub (wcag.html)</strong></a> - Checklists, success criteria breakdowns, and semantic implementation guides.</li>
+            <li><a href="tools.html"><strong>Accessibility Tools & Shortcuts (tools.html)</strong></a> - Curated repository of NVDA and TalkBack keyboard navigation maps.</li>
+          </ul>
+        </section>
 
-    </aside>
-    <!-- END COMPLEMENTARY LANDMARK -->
+        <!-- Section 3: Professional Credentials & Governance -->
+        <section class="section-card" aria-labelledby="governance-heading">
+          <h2 id="governance-heading">3. Credentials, Governance & Community</h2>
+          <ul style="line-height: 2;">
+            <li><a href="credentials.html"><strong>Certifications & Qualifications (credentials.html)</strong></a> - Verification of DADCA (NAB Delhi / NIIT Foundation), Advanced Excel, and CPACC pathways.</li>
+            <li><a href="rotaract.html"><strong>Rotaract Leadership (rotaract.html)</strong></a> - Community impact initiatives and leadership with Rotaract Club of NAB Delhi.</li>
+            <li><a href="privacy.html"><strong>Accessibility & Privacy Statement (privacy.html)</strong></a> - Data protection principles and digital accessibility commitment.</li>
+          </ul>
+        </section>
 
-  </div>
-  <!-- END TWO-COLUMN CONTAINER -->
-
-  <!-- FLOATING GO TO TOP BUTTON -->
-  <button type="button" class="btn-floating-top" id="btn-go-top" aria-label="Return directly to top of page">
-    &uarr; Top
-  </button>
-
-  <!-- =====================================================================
-       6. FOOTER LANDMARK (ROLE="CONTENTINFO")
-       ===================================================================== -->
-  <footer id="footer-landmark" role="contentinfo" tabindex="-1">
-    
-    <div class="container footer-content-grid">
-      
-      <div class="footer-col">
-        <h3>N-Labs Headquarters</h3>
-        <p><strong>Entity:</strong> N-Labs (Nitesh Inclusion Labs)</p>
-        <p><strong>Founder, CEO & Director:</strong> Nitesh Kumar</p>
-        <p><strong>Address:</strong> Dinkar Nagar, Dahi Bhatta, Masaurhi, Patna, Bihar, India (PIN: 804452)</p>
-        <p><strong>Official Inbox:</strong> <a href="mailto:niteshkumar91845@gmail.com">niteshkumar91845@gmail.com</a></p>
-      </div>
-
-      <div class="footer-col">
-        <h3>Quick Navigation Links</h3>
-        <ul class="footer-links-list">
-          <li><a href="index.html">Home Page</a></li>
-          <li><a href="about.html">About N-Labs</a></li>
-          <li><a href="services.html">Enterprise Services</a></li>
-          <li><a href="courses.html">Training Courses (₹99 & ₹299)</a></li>
-          <li><a href="tools.html">Live Audit Engines</a></li>
-          <li><a href="articles.html">Articles & Publications</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="contact.html">Contact & Feedback</a></li>
-          <li><a href="register.html">Course Registration</a></li>
-          <li><a href="auth.html">Client Sign Up / Login</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h3>Compliance & Legal Directives</h3>
-        <p>Engineered under the direct supervision of Nitesh Kumar in full conformance with W3C WAI-ARIA 1.2, WCAG 2.0/2.1/2.2 Levels A, AA, AAA, Section 508, and GIGW.</p>
-        <ul class="footer-links-list">
-          <li><a href="privacy.html">Privacy Policy</a></li>
-          <li><a href="terms.html">Terms of Use & Disclaimer</a></li>
-          <li><a href="sitemap.html">Universal Sitemap Index</a></li>
-        </ul>
       </div>
 
     </div>
+  </main>
 
-    <!-- Integrated Real-Time Access Telemetry -->
-    <div class="container footer-telemetry-container">
-      <div class="footer-telemetry-box">
-        <h4>Terminal Access Telemetry</h4>
-        <dl class="analytics-data-grid">
-          <div class="data-item">
-            <dt><strong>User Identity:</strong></dt>
-            <dd id="telemetry-username">Guest Visitor (Unauthenticated)</dd>
-          </div>
-          <div class="data-item">
-            <dt><strong>Visit Frequency:</strong></dt>
-            <dd id="telemetry-visit-count">Calculating access frequency...</dd>
-          </div>
-          <div class="data-item">
-            <dt><strong>Prior Visit Timestamp:</strong></dt>
-            <dd id="telemetry-prior-date">Checking prior records...</dd>
-          </div>
-          <div class="data-item">
-            <dt><strong>Current Visit:</strong></dt>
-            <dd id="telemetry-current-date">Friday, October 9, 2026 - IST</dd>
-          </div>
-          <div class="data-item">
-            <dt><strong>Session Active Duration:</strong></dt>
-            <dd id="telemetry-session-duration">0m 0s</dd>
-          </div>
-          <div class="data-item">
-            <dt><strong>Device & Architecture:</strong></dt>
-            <dd id="telemetry-device">Detecting client platform...</dd>
-          </div>
-          <div class="data-item">
-            <dt><strong>Network Node:</strong></dt>
-            <dd id="telemetry-location">Patna Node, Bihar, India (Resolved)</dd>
-          </div>
-          <div class="data-item">
-            <dt><strong>Activity Log:</strong></dt>
-            <dd id="telemetry-activity-log">Sitemap Page Initialized</dd>
-          </div>
-        </dl>
+  <!-- 6. FOOTER LANDMARK -->
+  <footer id="footer-landmark" role="contentinfo" class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-info">
+        <h2>InclusioTech Directorate</h2>
+        <p><strong>Founder:</strong> Nitesh Kumar</p>
+        <p><strong>Phone:</strong> <a href="tel:+918434721287">+91 8434721287</a></p>
+        <p><strong>Location:</strong> Patna, Bihar, India</p>
+        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/Nitesh-Kumar-InclusioTech" target="_blank" rel="noopener noreferrer">linkedin.com/in/Nitesh-Kumar-InclusioTech</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/inclusiotech" target="_blank" rel="noopener noreferrer">github.com/inclusiotech</a></p>
       </div>
-    </div>
-
-    <!-- Copyright & Version Stamp -->
-    <div class="footer-bottom-bar">
-      <div class="container footer-bottom-flex">
-        <p class="copyright-text">&copy; 2026 Nitesh Kumar / N-Labs (Nitesh Inclusion Labs). All rights reserved.</p>
-        <p class="version-stamp"><strong>Platform Build Version:</strong> v3.2.0-PROD | Build: 2026.10.09-IST</p>
+      <div class="footer-bottom">
+        <p>&copy; 2026 InclusioTech. All Rights Reserved. Built with universal accessibility and semantic standards.</p>
       </div>
     </div>
   </footer>
 
-  <!-- External Unified Logic Script -->
-  <script src="script.js" defer></script>
 </body>
 </html>
