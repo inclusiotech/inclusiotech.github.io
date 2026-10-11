@@ -1,115 +1,237 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-<head>  
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Person",
-  "name": "Nitesh Kumar",
-  "url": "https://n11lab.github.io/",
-  "jobTitle": "Accessibility Specialist & Digital Literacy Trainer",
-  "worksFor": {
-    "@type": "Organization",
-    "name": "N11Lab"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressRegion": "Bihar",
-    "addressCountry": "India"
-  },
-  "description": "Founder of N11Lab, Digital Accessibility Specialist, Screen Reader Expert, and Digital Literacy Trainer."
-}
-</script>
-<!-- =====================================================================
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- =====================================================================
        ENTERPRISE METADATA & ACCESSIBILITY DIRECTIVES
-       Entity: N11Lab (Nitesh Inclusion Lab)
-       Directorate: Nitesh Kumar (Founder, CEO & Director)
+       Entity: InclusioTech
+       Founder & CEO: Nitesh Kumar
        Conformance: W3C WCAG 2.0 / 2.1 / 2.2 (Level AAA) & WAI-ARIA 1.2
-       Timestamp: Wednesday, October 7, 2026 - IST
-       ===================================================================== -->  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>Home | N11Lab (Nitesh Inclusion Lab) - Enterprise Digital Accessibility</title>    
-<meta name="description" content="Official home portal of N11Lab, founded by Nitesh Kumar. Providing enterprise digital accessibility audits, PDF/UA document remediation, WCAG compliance training, and professional certification prep.">  
-<meta name="keywords" content="N-Labs, Nitesh Inclusion Labs, Nitesh Kumar, Accessibility Auditor, Screen Reader Tester, NVDA Expert, CPACC, DADCA, ADS, WCAG 2.2 AAA, Patna Bihar">  
-<meta name="author" content="Nitesh Kumar">  
-<meta name="robots" content="index, follow">
-  <!-- External Unified Stylesheet -->  
-<link rel="stylesheet" href="style.css">
+       ===================================================================== -->
+  <title>InclusioTech | Nitesh Kumar - Digital Accessibility, WCAG Auditing & Training</title>
+  <meta name="title" content="InclusioTech | Nitesh Kumar - Digital Accessibility, WCAG Auditing & Training">
+  <meta name="description" content="Official web portal of InclusioTech, founded by Nitesh Kumar. Providing enterprise digital accessibility audits, NVDA & TalkBack screen reader enablement, WCAG compliance training, and assistive technology solutions.">
+  <meta name="keywords" content="InclusioTech, Nitesh Kumar, Nitesh InclusioTech, InclusioTech Nitesh Kumar, Digital Accessibility Specialist, NVDA Expert, TalkBack Trainer, WCAG Auditor, Assistive Technology India, Rotaract Club of NAB Delhi">
+  <meta name="author" content="Nitesh Kumar">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://inclusiotech.github.io/">
+
+  <!-- Open Graph / LinkedIn / Social Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://inclusiotech.github.io/">
+  <meta property="og:title" content="InclusioTech | Official Portal of Nitesh Kumar">
+  <meta property="og:description" content="Digital Accessibility, Screen Reader Enablement, and Assistive Technology Solutions by Nitesh Kumar.">
+  <meta property="og:site_name" content="InclusioTech">
+
+  <!-- Google Knowledge Graph Schema (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://inclusiotech.github.io/#person",
+        "name": "Nitesh Kumar",
+        "jobTitle": "Founder & CEO, Digital Accessibility Specialist",
+        "url": "https://inclusiotech.github.io/",
+        "telephone": "+918434721287",
+        "sameAs": [
+          "https://www.linkedin.com/in/Nitesh-Kumar-InclusioTech",
+          "https://github.com/inclusiotech"
+        ],
+        "knowsAbout": [
+          "Web Content Accessibility Guidelines (WCAG)",
+          "NVDA Screen Reader",
+          "TalkBack Screen Reader",
+          "Digital Accessibility Auditing",
+          "Assistive Technology",
+          "Accessible Front-End Web Development"
+        ],
+        "worksFor": {
+          "@type": "Organization",
+          "@id": "https://inclusiotech.github.io/#organization"
+        },
+        "memberOf": {
+          "@type": "Organization",
+          "name": "Rotaract Club of NAB Delhi"
+        },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Patna",
+          "addressRegion": "Bihar",
+          "addressCountry": "India"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://inclusiotech.github.io/#organization",
+        "name": "InclusioTech",
+        "alternateName": ["Inclusio Tech", "InclusioTech by Nitesh Kumar"],
+        "url": "https://inclusiotech.github.io/",
+        "founder": {
+          "@id": "https://inclusiotech.github.io/#person"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+918434721287",
+          "contactType": "customer service",
+          "areaServed": "IN",
+          "availableLanguage": ["English", "Hindi"]
+        },
+        "description": "Enterprise digital accessibility auditing, assistive device training, and WCAG compliance consultancy."
+      }
+    ]
+  }
+  </script>
+
+  <!-- External Unified Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- =====================================================================
-       1. ACCESSIBLE SKIP LINKS (WCAG 2.4.1 BYPASS BLOCKS)
-       Direct keyboard shortcuts to major landmarks.
-       ===================================================================== -->  
-<nav class="skip-links-region" aria-label="Skip links">    
-<a href="#main-content" class="skip-link">Skip to Main Content</a>    
-<a href="#menu-toggle-btn" class="skip-link">Skip to Website Navigation</a>    
-<a href="#footer-landmark" class="skip-link">Skip to Footer</a>  
-</nav>
-  <!-- =====================================================================
-       2. TOP ENVIRONMENTAL TELEMETRY RIBBON
-       Live status bar: Clock, Date, Weather, and silent non-disruptive quotes.
-       ===================================================================== -->  
-<div class="telemetry-ribbon" aria-label="Environmental live status">    
-<div class="container ribbon-grid">      
-<div class="ribbon-block">        
-<span id="live-greeting" class="ribbon-highlight">Good Afternoon | Welcome to N-Labs</span>        
-<span class="divider" aria-hidden="true">|</span>        
-<span id="live-clock" tabindex="0">05:02:58 PM</span>      
-</div>      
-<div class="ribbon-block">        
-<span id="live-date" tabindex="0">Wednesday, 07 October 2026</span>      
-</div>      
-<div class="ribbon-block">        
-<span id="live-location" tabindex="0">Patna, Bihar, India</span>        
-<span class="divider" aria-hidden="true">|</span>        
-<span id="live-weather" tabindex="0">29°C | Clear | AQI: 118</span>      
-</div>      
-<div class="ribbon-block ribbon-quote-box" aria-hidden="true">        
-<span class="quote-title">Thought: </span>        
-<span id="dynamic-quote" class="quote-text">Universal design makes independence an unconditional reality.</span>      
-</div>    
-</div>  
-</div>
-  <!-- =====================================================================
-       3. CROSS-DISABILITY ACCESSIBILITY DISPLAY CONTROLS
-       ===================================================================== -->  
-<div class="a11y-toolbar-region">    
-<div class="container a11y-toolbar-flex">      
-<span class="toolbar-title" id="toolbar-heading">Accessibility Aids:</span>      
-<div class="toolbar-buttons" role="group" aria-labelledby="toolbar-heading">        
-<button type="button" id="btn-contrast" class="tool-btn" aria-pressed="false">High Contrast</button>        
-<button type="button" id="btn-dyslexic" class="tool-btn" aria-pressed="false">Dyslexic Font</button>        
-<button type="button" id="btn-text-inc" class="tool-btn" aria-label="Increase text size">Font +</button>        
-<button type="button" id="btn-text-dec" class="tool-btn" aria-label="Decrease text size">Font -</button>        
-<button type="button" id="btn-reset-pref" class="tool-btn" aria-label="Reset display preferences">Reset</button>      
-</div>    
-</div>  
-</div>
-  <!-- =====================================================================
-       4. HEADER LANDMARK (ROLE="BANNER")
-       Contains Brand Identity, Collapsible Leadership Drawer, Navigation Menu,
-       and the Universal Search Engine in its rightful global header position.
-       ===================================================================== -->  
-<header role="banner" class="site-header">    
-<div class="container header-flex">            
-<!-- Brand & Collapsible Leadership Drawer -->      
-<div class="branding-group">        
-<h1 id="site-heading">          
-<span class="brand-title">N-Labs</span>           
-<span class="brand-subtitle">(Nitesh Inclusion Labs)</span>        
-</h1>        
-<p class="brand-tagline">Enterprise Digital Accessibility, Assistive Engineering & Compliance Directorate</p>                
-<button type="button" id="btn-profile-drawer" class="btn-drawer-toggle" aria-expanded="false" aria-controls="founder-profile-drawer">          
-<span id="drawer-toggle-text">Show Leadership Synopsis &darr;</span>        
-</button>
-        <div id="founder-profile-drawer" class="profile-drawer-content" hidden>          
-<div class="drawer-card">            
-<h3>Leadership & Identity Profile</h3>            
-<p><strong>Founder, CEO & Director:</strong> Nitesh Kumar</p>            
-<p><strong>Operational Philosophy:</strong> 100% Visually Impaired, daily native screen reader power user (NVDA, TalkBack, JAWS). Providing lived non-visual verification combined with international compliance engineering.</p>            
-<p><strong>Credentials:</strong> NAB Delhi DADCA, NIIT Career Edge IT (94% Distinction), Deque IAAP CPACC Track, Web Accessibility Fundamentals, and Accessible Document Specialist (ADS).</p>            
-<p><strong>Base:</strong> Dinkar Nagar, Dahi Bhatta, Masaurhi, Patna, Bihar, India (PIN: 804452).</p>            
-<p><a href="about.html" class="btn-link">Read Full Founder Journey on About Page &rarr;</a></p>          
-</div>
+
+  <!-- 1. ACCESSIBLE SKIP LINKS -->
+  <nav class="skip-links-region" aria-label="Skip links">
+    <a href="#main-content" class="skip-link">Skip to Main Content</a>
+    <a href="#menu-navigation" class="skip-link">Skip to Website Navigation</a>
+    <a href="#founder-section" class="skip-link">Skip to Leadership Profile</a>
+    <a href="#contact-landmark" class="skip-link">Skip to Contact Information</a>
+  </nav>
+
+  <!-- 2. TELEMETRY RIBBON -->
+  <div class="telemetry-ribbon" aria-label="Live Status Banner">
+    <div class="container ribbon-grid">
+      <div class="ribbon-block">
+        <span id="live-greeting" class="ribbon-highlight">Welcome to InclusioTech</span>
+        <span class="divider" aria-hidden="true">|</span>
+        <span id="live-location" tabindex="0">Patna, Bihar, India</span>
+      </div>
+      <div class="ribbon-block ribbon-quote-box" aria-hidden="true">
+        <span class="quote-title">Mission: </span>
+        <span id="dynamic-quote" class="quote-text">Universal digital accessibility without barriers.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. ACCESSIBILITY DISPLAY CONTROLS -->
+  <div class="a11y-toolbar-region">
+    <div class="container a11y-toolbar-flex">
+      <span class="toolbar-title" id="toolbar-heading">Accessibility Aids:</span>
+      <div class="toolbar-buttons" role="group" aria-labelledby="toolbar-heading">
+        <button type="button" id="btn-contrast" class="tool-btn" aria-pressed="false">High Contrast</button>
+        <button type="button" id="btn-dyslexic" class="tool-btn" aria-pressed="false">Dyslexic Font</button>
+        <button type="button" id="btn-text-inc" class="tool-btn" aria-label="Increase text size">Font +</button>
+        <button type="button" id="btn-text-dec" class="tool-btn" aria-label="Decrease text size">Font -</button>
+        <button type="button" id="btn-reset-pref" class="tool-btn" aria-label="Reset display preferences">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. HEADER & BRANDING LANDMARK -->
+  <header role="banner" class="site-header">
+    <div class="container header-flex">
+      <div class="branding-group">
+        <h1 id="site-heading">
+          <span class="brand-title">InclusioTech</span>
+        </h1>
+        <p class="brand-tagline">Digital Accessibility, Screen Reader Enablement & Assistive Tech Solutions</p>
+      </div>
+
+      <!-- Quick Contact Pills in Header -->
+      <div class="header-contact-pills" aria-label="Quick contact links">
+        <a href="tel:+918434721287" class="pill-link" aria-label="Call InclusioTech">+91 8434721287</a>
+        <a href="https://www.linkedin.com/in/Nitesh-Kumar-InclusioTech" target="_blank" rel="noopener noreferrer" class="pill-link" aria-label="Visit Nitesh Kumar LinkedIn Profile">LinkedIn Profile</a>
+      </div>
+    </div>
+
+    <!-- Main Navigation Bar -->
+    <nav id="menu-navigation" class="main-nav" aria-label="Primary Navigation">
+      <div class="container nav-container">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link active" aria-current="page">Home</a></li>
+          <li><a href="#founder-section" class="nav-link">Founder Profile</a></li>
+          <li><a href="#services-section" class="nav-link">Services</a></li>
+          <li><a href="#contact-landmark" class="nav-link">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <!-- 5. MAIN CONTENT REGION -->
+  <main id="main-content" role="main" class="main-content-region">
+    <div class="container">
+
+      <!-- Hero Introduction -->
+      <section class="hero-card" aria-labelledby="hero-title">
+        <h2 id="hero-title">Empowering Universal Access Across the Web</h2>
+        <p>InclusioTech is an independent initiative delivering comprehensive Web Content Accessibility Guidelines (WCAG 2.1/2.2 AA/AAA) auditing, practical assistive technology training, and accessible digital solutions.</p>
+        <div class="hero-actions">
+          <a href="https://www.linkedin.com/in/Nitesh-Kumar-InclusioTech" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Connect on LinkedIn</a>
+          <a href="tel:+918434721287" class="btn btn-secondary">Call Directly: +91 8434721287</a>
+        </div>
+      </section>
+
+      <!-- Founder & Leadership Section -->
+      <section id="founder-section" class="section-card" aria-labelledby="founder-heading">
+        <h2 id="founder-heading">Founder & Leadership Profile</h2>
+        <div class="founder-details">
+          <h3>Nitesh Kumar</h3>
+          <p class="role-badge">Founder & CEO, InclusioTech | Digital Accessibility Specialist</p>
+          <p>Navigating technology with complete visual impairment using NVDA and TalkBack gives Nitesh an authentic, firsthand understanding of assistive navigation workflows, semantic barriers, and universal digital design.</p>
+          
+          <ul class="credentials-list">
+            <li><strong>Core Competencies:</strong> Manual WCAG Auditing, NVDA & TalkBack Screen Reader Navigation, Semantic HTML/ARIA Design.</li>
+            <li><strong>Credentials:</strong> Diploma in Assistive Devices in Computer Application (NAB Delhi / NIIT Foundation), Advanced Excel Certified.</li>
+            <li><strong>Community Leadership:</strong> Active Member, Rotaract Club of NAB Delhi.</li>
+          </ul>
+
+          <div class="profile-links">
+            <a href="https://www.linkedin.com/in/Nitesh-Kumar-InclusioTech" target="_blank" rel="noopener noreferrer" class="social-btn linkedin-btn">
+              <span>View Official LinkedIn Profile &rarr;</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Services & Expertise -->
+      <section id="services-section" class="section-card" aria-labelledby="services-heading">
+        <h2 id="services-heading">Core Practice Areas</h2>
+        <div class="services-grid">
+          <div class="service-item">
+            <h3>WCAG Compliance Auditing</h3>
+            <p>Comprehensive manual testing using keyboard navigation and screen readers to identify and remediate digital accessibility barriers.</p>
+          </div>
+          <div class="service-item">
+            <h3>Screen Reader Enablement</h3>
+            <p>Hands-on assistive technology instruction and digital literacy training utilizing NVDA (Windows) and TalkBack (Android).</p>
+          </div>
+          <div class="service-item">
+            <h3>Accessible Web Design</h3>
+            <p>Front-end architecture built strictly on semantic HTML5, valid landmarks, and robust ARIA patterns.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 6. FOOTER LANDMARK -->
+  <footer id="contact-landmark" role="contentinfo" class="site-footer">
+    <div class="container footer-content">
+      <div class="footer-info">
+        <h2>Contact InclusioTech</h2>
+        <p><strong>Founder:</strong> Nitesh Kumar</p>
+        <p><strong>Phone:</strong> <a href="tel:+918434721287">+91 8434721287</a></p>
+        <p><strong>Location:</strong> Patna, Bihar, India</p>
+        <p><strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/Nitesh-Kumar-InclusioTech" target="_blank" rel="noopener noreferrer">linkedin.com/in/Nitesh-Kumar-InclusioTech</a></p>
+        <p><strong>GitHub:</strong> <a href="https://github.com/inclusiotech" target="_blank" rel="noopener noreferrer">github.com/inclusiotech</a></p>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 InclusioTech. All Rights Reserved. Built with universal accessibility and semantic standards.</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
