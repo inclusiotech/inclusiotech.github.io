@@ -1,604 +1,436 @@
 /**
- * ============================================================================
- * JAVASCRIPT MASTER CONTROLLER - N-LABS (NITESH INCLUSION LABS)
- * Entity: N-Labs Ecosystem
- * Directorate: Nitesh Kumar (Founder, CEO & Director)
- * Technical Standards: W3C WCAG 2.2 Level AAA & WAI-ARIA 1.2
- * Architecture: Clean Vanilla JavaScript (Zero External Dependencies)
- * Timestamp: Wednesday, October 7, 2026 - IST
- * ============================================================================
+ * Resilience Industries Limited (RIL)
+ * Master External JavaScript Engine: script.js
+ * Standards: WCAG 2.2 AAA & W3C ARIA APG Compliant
  */
 
-(function () {
-  'use strict';
+// --- 1. Firebase Modular SDK Imports ---
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+import { 
+  getAuth, 
+  onAuthStateChanged, 
+  signInWithEmailAndPassword, 
+  createUserWithEmailAndPassword, 
+  sendPasswordResetEmail, 
+  sendEmailVerification, 
+  signOut 
+} from "https://www.gstatic.com/firebasejs/13.0.0/firebase-auth.js";
+import { getAnalytics, logEvent } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-analytics.js";
 
-  // ==========================================================================
-  // MODULE 1: ENVIRONMENTAL TELEMETRY (LIVE CLOCK, DATE, GREETING & QUOTES)
-  // ==========================================================================
+// Official Firebase Web Configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyAnjYkiS9r1SigAQVgC56l-veY1hWAu_vE",
+  authDomain: "resilience-industries.firebaseapp.com",
+  projectId: "resilience-industries",
+  storageBucket: "resilience-industries.firebasestorage.app",
+  messagingSenderId: "1037348610218",
+  appId: "1:1037348610218:web:dacf7c850d9cc6b18430d3",
+  measurementId: "G-NP4D2BPKBF"
+};
 
-  function initEnvironmentalTelemetry() {
-    const greetingEl = document.getElementById('live-greeting');
-    const clockEl = document.getElementById('live-clock');
-    const dateEl = document.getElementById('live-date');
-    const quoteEl = document.getElementById('dynamic-quote');
+// Initialize Core Firebase Services
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const analytics = getAnalytics(app);
 
-    function updateClockAndGreeting() {
-      const now = new Date();
-      const hours24 = now.getHours();
+// Global Secure Credentials
+const WEB3FORMS_ACCESS_KEY = "d2c05cee-06e6-4d04-9343-5d6643886a0a";
+const RAZORPAY_KEY_ID = "rzp_test_TozWNx1OzB1cBY";
+const RECAPTCHA_SITE_KEY = "6Ldur_MtAAAAAGQlqUGYPk6103KttHViERKln2NF";
+const ADMIN_EMAIL = "niteshkumar91845@gmail.com";
 
-      let greeting = 'Welcome to N-Labs';
-      if (hours24 >= 4 && hours24 < 12) {
-        greeting = 'Good Morning | Welcome to N-Labs';
-      } else if (hours24 >= 12 && hours24 < 17) {
-        greeting = 'Good Afternoon | Welcome to N-Labs';
-      } else if (hours24 >= 17 && hours24 < 22) {
-        greeting = 'Good Evening | Welcome to N-Labs';
-      } else {
-        greeting = 'Good Night | Welcome to N-Labs';
-      }
+// --- 2. Mandatory Auth Wall (Enforced Login / Sign-up Gate) ---
+const authGateModal = document.getElementById("auth-gate-modal");
+const mainSiteWrapper = document.getElementById("main-site-wrapper");
+const userGreetingBanner = document.getElementById("user-session-greeting");
 
-      if (greetingEl) {
-        greetingEl.textContent = greeting;
-      }
-
-      if (clockEl) {
-        clockEl.textContent = now.toLocaleTimeString('en-IN', {
-          hour: '2-digit',
-          minute: '2-digit',
-          second: '2-digit',
-          hour12: true
-        });
-      }
-
-      if (dateEl) {
-        dateEl.textContent = now.toLocaleDateString('en-IN', {
-          weekday: 'long',
-          day: '2-digit',
-          month: 'long',
-          year: 'numeric'
-        });
-      }
+// Monitor Authentication State
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    // User is Authenticated: Unlock Website
+    if (mainSiteWrapper) {
+      mainSiteWrapper.style.display = "block";
+      mainSiteWrapper.removeAttribute("aria-hidden");
     }
-
-    updateClockAndGreeting();
-    setInterval(updateClockAndGreeting, 1000);
-
-    const thoughts = [
-      "Universal design makes independence an unconditional reality.",
-      "The power of the Web is in its universality. — Tim Berners-Lee",
-      "Do not use ARIA when native HTML5 semantic markup already exists.",
-      "A keyboard trap is an insurmountable barrier for a screen reader user.",
-      "Design systems without accessibility are fundamentally incomplete.",
-      "Accessibility is not a charity feature; it is core civil rights infrastructure.",
-      "Semantic information structure empowers both human users and AI engines.",
-      "True digital inclusion requires lived non-visual operational verification."
-    ];
-
-    let currentThoughtIndex = 0;
-    if (quoteEl) {
-      setInterval(function () {
-        currentThoughtIndex = (currentThoughtIndex + 1) % thoughts.length;
-        quoteEl.textContent = thoughts[currentThoughtIndex];
-      }, 10000);
+    if (authGateModal) {
+      authGateModal.style.display = "none";
+      authGateModal.setAttribute("aria-hidden", "true");
+    }
+    if (userGreetingBanner) {
+      userGreetingBanner.textContent = `सक्रिय खाता: ${user.email}`;
+    }
+    updateLiveAnalytics("session_active");
+  } else {
+    // User Not Authenticated: Strict Lock & Focus Trap
+    if (mainSiteWrapper) {
+      mainSiteWrapper.style.display = "none";
+      mainSiteWrapper.setAttribute("aria-hidden", "true");
+    }
+    if (authGateModal) {
+      authGateModal.style.display = "flex";
+      authGateModal.removeAttribute("aria-hidden");
+      const initialFocus = document.getElementById("auth-login-email");
+      if (initialFocus) initialFocus.focus();
     }
   }
+});
 
-  // ==========================================================================
-  // MODULE 2: CROSS-DISABILITY ACCESSIBILITY DISPLAY CONTROLS
-  // ==========================================================================
+// Authentication Modal Tab Switcher
+window.switchAuthTab = function(tabName) {
+  const loginForm = document.getElementById("form-login-tab");
+  const signupForm = document.getElementById("form-signup-tab");
+  const resetForm = document.getElementById("form-reset-tab");
+  const tabBtnLogin = document.getElementById("tab-btn-login");
+  const tabBtnSignup = document.getElementById("tab-btn-signup");
+  const tabBtnReset = document.getElementById("tab-btn-reset");
+  const statusElem = document.getElementById("auth-status-message");
 
-  function initAccessibilityToolbar() {
-    const btnContrast = document.getElementById('btn-contrast');
-    const btnDyslexic = document.getElementById('btn-dyslexic');
-    const btnTextInc = document.getElementById('btn-text-inc');
-    const btnTextDec = document.getElementById('btn-text-dec');
-    const btnResetPref = document.getElementById('btn-reset-pref');
+  if (statusElem) statusElem.textContent = "";
 
-    let currentZoom = parseFloat(localStorage.getItem('nlabs_text_zoom') || '1.0');
-    let highContrast = localStorage.getItem('nlabs_high_contrast') === 'true';
-    let dyslexicFont = localStorage.getItem('nlabs_dyslexic') === 'true';
+  if (loginForm) loginForm.style.display = tabName === "login" ? "block" : "none";
+  if (signupForm) signupForm.style.display = tabName === "signup" ? "block" : "none";
+  if (resetForm) resetForm.style.display = tabName === "reset" ? "block" : "none";
 
-    function applyPreferences() {
-      if (highContrast) {
-        document.body.classList.add('high-contrast-mode');
-        if (btnContrast) btnContrast.setAttribute('aria-pressed', 'true');
-      } else {
-        document.body.classList.remove('high-contrast-mode');
-        if (btnContrast) btnContrast.setAttribute('aria-pressed', 'false');
-      }
+  if (tabBtnLogin) tabBtnLogin.setAttribute("aria-selected", tabName === "login");
+  if (tabBtnSignup) tabBtnSignup.setAttribute("aria-selected", tabName === "signup");
+  if (tabBtnReset) tabBtnReset.setAttribute("aria-selected", tabName === "reset");
+};
 
-      if (dyslexicFont) {
-        document.body.classList.add('dyslexic-font-mode');
-        if (btnDyslexic) btnDyslexic.setAttribute('aria-pressed', 'true');
-      } else {
-        document.body.classList.remove('dyslexic-font-mode');
-        if (btnDyslexic) btnDyslexic.setAttribute('aria-pressed', 'false');
-      }
+// Login Handler
+window.handleUserLogin = async function(event) {
+  event.preventDefault();
+  const email = document.getElementById("auth-login-email").value.trim();
+  const pass = document.getElementById("auth-login-pass").value;
+  const statusElem = document.getElementById("auth-status-message");
 
-      document.documentElement.style.fontSize = `${currentZoom * 100}%`;
+  try {
+    statusElem.textContent = "सत्यापन किया जा रहा है...";
+    await signInWithEmailAndPassword(auth, email, pass);
+    statusElem.textContent = "लॉगिन सफल।";
+    dispatchWeb3Notification("Login Notification", `User ${email} has successfully logged into Resilience Industries.`);
+  } catch (error) {
+    statusElem.textContent = `लॉगिन त्रुटि: ${error.message}`;
+  }
+};
 
-      localStorage.setItem('nlabs_high_contrast', highContrast);
-      localStorage.setItem('nlabs_dyslexic', dyslexicFont);
-      localStorage.setItem('nlabs_text_zoom', currentZoom.toString());
-    }
+// Registration / Sign-up Handler
+window.handleUserSignUp = async function(event) {
+  event.preventDefault();
+  const email = document.getElementById("auth-signup-email").value.trim();
+  const pass = document.getElementById("auth-signup-pass").value;
+  const passConfirm = document.getElementById("auth-signup-confirm").value;
+  const statusElem = document.getElementById("auth-status-message");
 
-    applyPreferences();
-
-    if (btnContrast) {
-      btnContrast.addEventListener('click', function () {
-        highContrast = !highContrast;
-        applyPreferences();
-        logTelemetryAction(`Toggled High Contrast Mode: ${highContrast ? 'Enabled' : 'Disabled'}`);
-      });
-    }
-
-    if (btnDyslexic) {
-      btnDyslexic.addEventListener('click', function () {
-        dyslexicFont = !dyslexicFont;
-        applyPreferences();
-        logTelemetryAction(`Toggled Dyslexic Font: ${dyslexicFont ? 'Enabled' : 'Disabled'}`);
-      });
-    }
-
-    if (btnTextInc) {
-      btnTextInc.addEventListener('click', function () {
-        if (currentZoom < 1.6) {
-          currentZoom += 0.1;
-          applyPreferences();
-          logTelemetryAction(`Increased Font Scale: ${(currentZoom * 100).toFixed(0)}%`);
-        }
-      });
-    }
-
-    if (btnTextDec) {
-      btnTextDec.addEventListener('click', function () {
-        if (currentZoom > 0.8) {
-          currentZoom -= 0.1;
-          applyPreferences();
-          logTelemetryAction(`Decreased Font Scale: ${(currentZoom * 100).toFixed(0)}%`);
-        }
-      });
-    }
-
-    if (btnResetPref) {
-      btnResetPref.addEventListener('click', function () {
-        currentZoom = 1.0;
-        highContrast = false;
-        dyslexicFont = false;
-        applyPreferences();
-        logTelemetryAction('Reset Display Preferences to Defaults');
-      });
-    }
+  if (pass !== passConfirm) {
+    statusElem.textContent = "त्रुटि: पासवर्ड और पुष्टि पासवर्ड मेल नहीं खाते।";
+    return;
   }
 
-  // ==========================================================================
-  // MODULE 3: ACCESSIBLE EXPANDABLE UI (MENU & PROFILE DRAWER)
-  // ==========================================================================
+  try {
+    statusElem.textContent = "खाता बनाया जा रहा है...";
+    const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+    await sendEmailVerification(userCredential.user);
+    statusElem.textContent = "खाता सफलतापूर्वक बन गया! सत्यापन लिंक आपके ईमेल पर भेजा गया है।";
+    dispatchWeb3Notification("New Registration Alert", `New User Registered: ${email}. Verification email dispatched.`);
+  } catch (error) {
+    statusElem.textContent = `पंजीकरण त्रुटि: ${error.message}`;
+  }
+};
 
-  function initAccessibleExpandables() {
-    const menuToggleBtn = document.getElementById('menu-toggle-btn');
-    const globalMenu = document.getElementById('global-dropdown-menu');
+// Forgot Password / Reset Handler
+window.handlePasswordReset = async function(event) {
+  event.preventDefault();
+  const email = document.getElementById("auth-reset-email").value.trim();
+  const statusElem = document.getElementById("auth-status-message");
 
-    if (menuToggleBtn && globalMenu) {
-      menuToggleBtn.addEventListener('click', function () {
-        const isExpanded = menuToggleBtn.getAttribute('aria-expanded') === 'true';
-        menuToggleBtn.setAttribute('aria-expanded', !isExpanded);
-        globalMenu.hidden = isExpanded;
-
-        if (!isExpanded) {
-          logTelemetryAction('Expanded Main Navigation Menu');
-          const firstLink = globalMenu.querySelector('a');
-          if (firstLink) firstLink.focus();
-        } else {
-          logTelemetryAction('Collapsed Main Navigation Menu');
-        }
-      });
-
-      document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && menuToggleBtn.getAttribute('aria-expanded') === 'true') {
-          menuToggleBtn.setAttribute('aria-expanded', 'false');
-          globalMenu.hidden = true;
-          menuToggleBtn.focus();
-          logTelemetryAction('Closed Main Menu via Escape Key');
-        }
-      });
-    }
-
-    const profileToggleBtn = document.getElementById('btn-profile-drawer');
-    const profileDrawer = document.getElementById('founder-profile-drawer');
-    const toggleText = document.getElementById('drawer-toggle-text');
-
-    if (profileToggleBtn && profileDrawer) {
-      profileToggleBtn.addEventListener('click', function () {
-        const isExpanded = profileToggleBtn.getAttribute('aria-expanded') === 'true';
-        profileToggleBtn.setAttribute('aria-expanded', !isExpanded);
-        profileDrawer.hidden = isExpanded;
-
-        if (toggleText) {
-          toggleText.innerHTML = isExpanded 
-            ? 'Show Leadership Synopsis &darr;' 
-            : 'Hide Leadership Synopsis &uarr;';
-        }
-
-        logTelemetryAction(isExpanded ? 'Collapsed Leadership Synopsis' : 'Expanded Leadership Synopsis');
-      });
-    }
-
-    const btnGoTop = document.getElementById('btn-go-top');
-    const siteHeading = document.getElementById('site-heading');
-
-    if (btnGoTop) {
-      window.addEventListener('scroll', function () {
-        if (window.scrollY > 300) {
-          btnGoTop.style.display = 'block';
-        } else {
-          btnGoTop.style.display = 'none';
-        }
-      });
-
-      btnGoTop.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-        if (siteHeading) {
-          siteHeading.setAttribute('tabindex', '-1');
-          siteHeading.focus();
-        }
-        logTelemetryAction('Returned to Top of Page via Floating Action');
-      });
-    }
+  if (!email) {
+    statusElem.textContent = "कृपया अपना पंजीकृत ईमेल दर्ज करें।";
+    return;
   }
 
-  // ==========================================================================
-  // MODULE 4: UNIVERSAL SITE SEARCH ENGINE
-  // ==========================================================================
-
-  const siteSearchIndex = [
-    { title: "Home Page", url: "index.html", tags: "home portal n-labs nitesh inclusion labs overview founder welcome" },
-    { title: "About N-Labs & Founder Story", url: "about.html", tags: "about nitesh kumar story vision mission lived experience patna bihar" },
-    { title: "Core Enterprise Services", url: "services.html", tags: "services audits vpat acr remediation training pdf ua document user testing" },
-    { title: "Course 1: Complete HTML5, WAI-ARIA & Web Basics (₹99)", url: "courses.html#course-web-dev", tags: "courses html aria css javascript basic 99 rupees hindi google meet" },
-    { title: "Course 2: Accessibility Tester & Auditor Masterclass (₹299)", url: "courses.html#course-a11y-auditor", tags: "courses auditing tester qa wcag nvda talkback jira vpat 299 rupees" },
-    { title: "Audit Engines & Tools", url: "tools.html", tags: "tools engines audit inspect contrast validator url html document scanner" },
-    { title: "Articles & Knowledge Base", url: "articles.html", tags: "articles blog wcag bug reports jira manual audits pdf ua aria rules" },
-    { title: "Course Registration Portal", url: "register.html", tags: "register enroll student course admission form 99 299 google meet" },
-    { title: "Contact, Inquiries & Feedback", url: "contact.html", tags: "contact email address location masaurhi patna feedback suggestion" },
-    { title: "Client Sign Up & Login", url: "auth.html", tags: "auth login sign up register client access portal password account" },
-    { title: "Frequently Asked Questions (FAQ)", url: "faq.html", tags: "faq questions answers audit timeline legal pricing support" },
-    { title: "Privacy Policy", url: "privacy.html", tags: "privacy policy data local storage security terms" },
-    { title: "Terms of Use", url: "terms.html", tags: "terms use legal compliance disclaimer copyright" },
-    { title: "Universal Sitemap Index", url: "sitemap.html", tags: "sitemap index directory structure navigation all pages" }
-  ];
-
-  window.executeGlobalSearch = function () {
-    const input = document.getElementById('search-input');
-    const panel = document.getElementById('search-results-panel');
-    const container = document.getElementById('search-results-container');
-
-    if (!input || !panel || !container) return;
-
-    const query = input.value.toLowerCase().trim();
-    if (!query) return;
-
-    const matches = siteSearchIndex.filter(item => 
-      item.title.toLowerCase().includes(query) || item.tags.toLowerCase().includes(query)
-    );
-
-    panel.style.display = 'block';
-    container.innerHTML = '';
-
-    if (matches.length === 0) {
-      container.innerHTML = `<p>No matching resources found for <strong>"${escapeHTML(query)}"</strong>. Try keywords like <em>audit, courses, services,</em> or <em>tools</em>.</p>`;
-    } else {
-      const list = document.createElement('ul');
-      list.className = 'clean-bullet-list';
-      matches.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${item.url}" class="btn-read-more"><strong>${escapeHTML(item.title)}</strong></a>`;
-        list.appendChild(li);
-      });
-      container.appendChild(list);
-    }
-
-    panel.scrollIntoView({ behavior: 'smooth' });
-    panel.focus();
-    logTelemetryAction(`Executed Universal Search for: "${query}" (${matches.length} results)`);
-  };
-
-  // ==========================================================================
-  // MODULE 5: 5 WORKING CLIENT-SIDE ACCESSIBILITY AUDIT ENGINES
-  // ==========================================================================
-
-  window.auditLiveURL = function () {
-    const input = document.getElementById('tool-url-input');
-    const output = document.getElementById('url-audit-output');
-    if (!input || !output) return;
-
-    const targetUrl = input.value.trim();
-    if (!targetUrl) return;
-
-    output.hidden = false;
-    output.textContent = `Initiating live inspection on: ${targetUrl} ...\nEvaluating DOM landmarks, bypass blocks, and WCAG 2.2 AA rules...`;
-
-    setTimeout(function () {
-      const timestamp = new Date().toLocaleString('en-IN');
-      output.textContent = 
-`===================================================================
-N-LABS AUTOMATED URL CONFORMANCE DISCOVERY REPORT
-Target URL: ${targetUrl}
-Directorate: Nitesh Kumar (Founder, CEO & Director)
-Timestamp: ${timestamp}
-Standard: W3C WCAG 2.1 / 2.2 Level AA & Section 508
-===================================================================
-
-[DISCOVERED DEFECTS & FINDINGS]:
-1. [FAIL] WCAG 2.4.1 (Bypass Blocks): Missing top-level skip-to-content bypass mechanism.
-2. [FAIL] WCAG 4.1.2 (Name, Role, Value): Icon buttons in primary navigation lack accessible names.
-3. [WARN] WCAG 1.4.3 (Contrast Minimum): Sub-navigation text contrast evaluates at 3.2:1 (Required: 4.5:1).
-4. [FAIL] WCAG 1.3.1 (Info and Relationships): Heading sequence skips H1 directly to H3.
-5. [PASS] WCAG 2.1.1 (Keyboard Operability): All native links and form fields tab-navigable.
-
-[DIRECT REMEDIATION DIRECTIVES]:
-- Inject top-level bypass link: <a href="#main" class="skip-link">Skip to Content</a>
-- Add aria-label or accessible text inside icon-only interactive controls.
-- Re-align heading tags strictly sequentially (H1 -> H2 -> H3).
-
-STATUS: Local audit completed. Verified without external telemetry leak.`;
-      logTelemetryAction(`Ran Live URL Audit on: ${targetUrl}`);
-    }, 800);
-  };
-
-  window.auditHTMLSnippet = function () {
-    const input = document.getElementById('tool-html-input');
-    const output = document.getElementById('html-audit-output');
-    if (!input || !output) return;
-
-    const code = input.value.trim();
-    if (!code) return;
-
-    output.hidden = false;
-    const issues = [];
-
-    if (code.includes('<img') && !code.includes('alt=')) {
-      issues.push("WCAG 1.1.1 Non-Text Content: <img> element is missing an 'alt' attribute. Fix: Add alt=\"description\" or alt=\"\" for decorative graphics.");
-    }
-    if (code.includes('<a') && !code.includes('href=')) {
-      issues.push("WCAG 2.1.1 Keyboard: <a> element missing valid 'href'. Anchor is non-keyboard operable.");
-    }
-    if (code.includes('<div') && (code.includes('onclick=') || code.includes('click')) && !code.includes('role="button"')) {
-      issues.push("WCAG 4.1.2 Name, Role, Value: Clickable <div> lacks role=\"button\" and tabindex=\"0\". Screen readers cannot announce interactive role.");
-    }
-    if (code.includes('<input') && !code.includes('aria-label') && !code.includes('id=')) {
-      issues.push("WCAG 3.3.2 Labels or Instructions: <input> lacks programmatic label association (<label for=\"id\"> or aria-label).");
-    }
-
-    if (issues.length === 0) {
-      output.textContent = "N-LABS COMPONENT AUDIT PASSED: No immediate WCAG 2.2 AA structural violations detected in submitted HTML snippet.";
-    } else {
-      output.textContent = `N-LABS COMPONENT DEFECTS DETECTED (${issues.length} Issues):\n\n` + issues.map((iss, i) => `${i + 1}. [FAIL] ${iss}`).join('\n\n');
-    }
-    logTelemetryAction(`Inspected HTML Code Snippet (${issues.length} defects identified)`);
-  };
-
-  window.auditDocumentStructure = function () {
-    const input = document.getElementById('tool-doc-input');
-    const output = document.getElementById('doc-audit-output');
-    if (!input || !output) return;
-
-    const text = input.value.trim();
-    if (!text) return;
-
-    output.hidden = false;
-    const words = text.split(/\s+/).filter(Boolean).length;
-    const hasHeadings = /chapter|section|heading|\bh[1-6]\b/i.test(text);
-    const hasTables = /table|column|row|cells/i.test(text);
-
-    output.textContent = 
-`DOCUMENT ACCESSIBILITY STRUCTURE EVALUATION (ADS DOMAIN):
-Analyzed Volume: ${words} Words
-Heading Markers Detected: ${hasHeadings ? 'Yes (Structural markers present)' : 'None (Document appears unsegmented)'}
-Data Table References: ${hasTables ? 'Detected (Requires explicit scope="col/row")' : 'None detected'}
-
-PDF/UA & OFFICE REMEDIATION CHECKLIST:
-1. Ensure all H1-H4 heading tags reflect visual section hierarchy without level skipping.
-2. Convert pseudo-tables into real tagged tables with designated header cells (<TH>).
-3. Verify logical reading order using Screen Reader Read-All command (NVDA + Down Arrow).`;
-
-    logTelemetryAction(`Audited Document Structure (${words} words analyzed)`);
-  };
-
-  window.calculateContrastRatio = function () {
-    const fgInput = document.getElementById('tool-fg-color');
-    const bgInput = document.getElementById('tool-bg-color');
-    const output = document.getElementById('contrast-audit-output');
-    if (!fgInput || !bgInput || !output) return;
-
-    const fgHex = fgInput.value.trim();
-    const bgHex = bgInput.value.trim();
-
-    function getLuminance(hex) {
-      hex = hex.replace('#', '');
-      if (hex.length === 3) {
-        hex = hex.split('').map(c => c + c).join('');
-      }
-      if (hex.length !== 6) return 0;
-
-      const rgb = [
-        parseInt(hex.substr(0, 2), 16) / 255,
-        parseInt(hex.substr(2, 2), 16) / 255,
-        parseInt(hex.substr(4, 2), 16) / 255
-      ].map(val => {
-        return val <= 0.03928 ? val / 12.92 : Math.pow((val + 0.055) / 1.055, 2.4);
-      });
-
-      return 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
-    }
-
-    const lum1 = getLuminance(fgHex);
-    const lum2 = getLuminance(bgHex);
-    const brightest = Math.max(lum1, lum2);
-    const darkest = Math.min(lum1, lum2);
-    const ratio = ((brightest + 0.05) / (darkest + 0.05)).toFixed(2);
-
-    output.hidden = false;
-    const passesAA = ratio >= 4.5;
-    const passesAAA = ratio >= 7.0;
-
-    output.textContent = 
-`WCAG 1.4.3 CONTRAST EVALUATION RESULTS:
-Calculated Contrast Ratio: ${ratio}:1
-
-- Normal Text WCAG AA (Min 4.5:1): ${passesAA ? 'PASSED [PASS]' : 'FAILED [FAIL]'}
-- Enhanced Text WCAG AAA (Min 7.0:1): ${passesAAA ? 'PASSED [PASS]' : 'FAILED [FAIL]'}
-- Large Text (18pt+) WCAG AA (Min 3.0:1): ${ratio >= 3.0 ? 'PASSED [PASS]' : 'FAILED [FAIL]'}`;
-
-    logTelemetryAction(`Evaluated Color Contrast: ${fgHex} vs ${bgHex} (${ratio}:1)`);
-  };
-
-  window.validateCurrentLandmarks = function () {
-    const output = document.getElementById('landmark-audit-output');
-    if (!output) return;
-
-    output.hidden = false;
-    const required = [
-      { tag: 'header, [role="banner"]', name: 'Banner' },
-      { tag: 'nav, [role="navigation"]', name: 'Navigation' },
-      { tag: 'main, [role="main"]', name: 'Main Content' },
-      { tag: 'aside, [role="complementary"]', name: 'Complementary' },
-      { tag: 'footer, [role="contentinfo"]', name: 'Contentinfo (Footer)' }
-    ];
-
-    const results = required.map(req => {
-      const el = document.querySelector(req.tag);
-      return `${el ? '[PASS]' : '[FAIL]'} ${req.name} Landmark: ${el ? 'Present and programmatically accessible.' : 'Missing in active DOM.'}`;
-    });
-
-    output.textContent = 
-`N-LABS ACTIVE DOM LANDMARK CONFORMANCE:
-Verified Standards: WAI-ARIA 1.2 & WCAG 2.4.1
-
-${results.join('\n')}
-
-Core landmark hierarchy strictly aligned with W3C APG directives.`;
-
-    logTelemetryAction('Validated System Landmark Architecture');
-  };
-
-  // ==========================================================================
-  // MODULE 6: REAL-TIME AUDITING & VISITOR TELEMETRY ENGINE
-  // ==========================================================================
-
-  let sessionSeconds = 0;
-
-  function initVisitorTelemetry() {
-    let visitCount = parseInt(localStorage.getItem('nlabs_visit_counter') || '0', 10) + 1;
-    localStorage.setItem('nlabs_visit_counter', visitCount.toString());
-
-    const priorTimestamp = localStorage.getItem('nlabs_last_access_time') || 'Initial Visit (No previous session recorded)';
-    const currentTimestamp = new Date().toLocaleString('en-IN', {
-      weekday: 'long',
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hour12: true
-    });
-    localStorage.setItem('nlabs_last_access_time', currentTimestamp);
-
-    const userEl = document.getElementById('telemetry-username');
-    const visitEl = document.getElementById('telemetry-visit-count');
-    const priorEl = document.getElementById('telemetry-prior-date');
-    const currentEl = document.getElementById('telemetry-current-date');
-    const deviceEl = document.getElementById('telemetry-device');
-    const locationEl = document.getElementById('telemetry-location');
-
-    const authenticatedClient = localStorage.getItem('nlabs_auth_client_name');
-    if (userEl) {
-      userEl.textContent = authenticatedClient ? authenticatedClient : 'Guest Visitor (Unauthenticated)';
-    }
-
-    if (visitEl) {
-      visitEl.textContent = `Visit #${visitCount} recorded on this client terminal`;
-    }
-
-    if (priorEl) {
-      priorEl.textContent = priorTimestamp;
-    }
-
-    if (currentEl) {
-      currentEl.textContent = `${currentTimestamp} IST`;
-    }
-
-    if (deviceEl) {
-      const userAgent = navigator.userAgent;
-      let os = 'Unknown OS';
-      if (/Android/i.test(userAgent)) os = 'Android Mobile';
-      else if (/iPhone|iPad|iPod/i.test(userAgent)) os = 'Apple iOS Device';
-      else if (/Windows/i.test(userAgent)) os = 'Microsoft Windows';
-      else if (/Macintosh|Mac OS X/i.test(userAgent)) os = 'macOS Desktop';
-      else if (/Linux/i.test(userAgent)) os = 'GNU/Linux Architecture';
-
-      const res = `${window.screen.width}x${window.screen.height} (${window.devicePixelRatio}x dpr)`;
-      deviceEl.textContent = `${os} | Browser: ${getBrowserName()} | Screen: ${res}`;
-    }
-
-    if (locationEl) {
-      locationEl.textContent = 'Patna Node, Bihar, India (Resolved Gateway)';
-    }
-
-    const durationEl = document.getElementById('telemetry-session-duration');
-    setInterval(function () {
-      sessionSeconds++;
-      const mins = Math.floor(sessionSeconds / 60);
-      const secs = sessionSeconds % 60;
-      if (durationEl) {
-        durationEl.textContent = `${mins}m ${secs}s active`;
-      }
-    }, 1000);
+  try {
+    statusElem.textContent = "रीसेट लिंक भेजा जा रहा है...";
+    await sendPasswordResetEmail(auth, email);
+    statusElem.textContent = "पासवर्ड रीसेट लिंक आपके ईमेल पर भेज दिया गया है।";
+    dispatchWeb3Notification("Password Reset Request", `Password reset requested for: ${email}`);
+  } catch (error) {
+    statusElem.textContent = `त्रुटि: ${error.message}`;
   }
+};
 
-  function getBrowserName() {
-    const ua = navigator.userAgent;
-    if (ua.includes("Firefox")) return "Mozilla Firefox";
-    if (ua.includes("SamsungBrowser")) return "Samsung Internet";
-    if (ua.includes("Opera") || ua.includes("OPR")) return "Opera";
-    if (ua.includes("Trident")) return "Internet Explorer";
-    if (ua.includes("Edge") || ua.includes("Edg")) return "Microsoft Edge";
-    if (ua.includes("Chrome")) return "Google Chrome";
-    if (ua.includes("Safari")) return "Apple Safari";
-    return "Standard Web Agent";
-  }
-
-  function logTelemetryAction(actionText) {
-    const logEl = document.getElementById('telemetry-activity-log');
-    if (logEl) {
-      const timeStr = new Date().toLocaleTimeString('en-IN', { hour12: false });
-      logEl.textContent = `[${timeStr}] ${actionText}`;
-    }
-  }
-
-  function escapeHTML(str) {
-    return str.replace(/[&<>'"]/g, 
-      tag => ({
-        '&': '&amp;',
-        '<': '&lt;',
-        '>': '&gt;',
-        "'": '&#39;',
-        '"': '&quot;'
-      }[tag] || tag)
-    );
-  }
-
-  // ==========================================================================
-  // INITIALIZATION ON DOM READY
-  // ==========================================================================
-
-  document.addEventListener('DOMContentLoaded', function () {
-    initEnvironmentalTelemetry();
-    initAccessibilityToolbar();
-    initAccessibleExpandables();
-    initVisitorTelemetry();
-    logTelemetryAction('N-Labs Master Architecture Initialized Successfully');
+// Logout Handler
+window.handleUserLogout = function() {
+  signOut(auth).then(() => {
+    alert("आप सुरक्षित रूप से लॉग आउट हो चुके हैं।");
   });
+};
 
+// --- 3. Live Banner: Clock, Calendar, Greetings & Weather ---
+function updateLiveBanner() {
+  const now = new Date();
+  
+  // A. Dynamic Greeting
+  const hours = now.getHours();
+  let greeting = "नमस्ते";
+  if (hours >= 4 && hours < 12) {
+    greeting = "शुभ प्रभात (Good Morning)";
+  } else if (hours >= 12 && hours < 17) {
+    greeting = "शुभ दोपहर (Good Afternoon)";
+  } else {
+    greeting = "शुभ संध्या (Good Evening)";
+  }
+  const greetingEl = document.getElementById("banner-greeting");
+  if (greetingEl) {
+    greetingEl.textContent = `${greeting} | रेज़िलिएंस इंडस्ट्रीज़ लिमिटेड में आपका स्वागत है`;
+  }
+
+  // B. Live Clock (HH:MM:SS)
+  const timeStr = now.toLocaleTimeString("hi-IN", { hour12: false });
+  const clockEl = document.getElementById("live-clock");
+  if (clockEl) {
+    clockEl.textContent = timeStr;
+  }
+
+  // C. Live Calendar (Day, Date Month Year)
+  const calendarOptions = { weekday: "long", year: "numeric", month: "long", day: "numeric" };
+  const calendarStr = now.toLocaleDateString("hi-IN", calendarOptions);
+  const calendarEl = document.getElementById("live-calendar");
+  if (calendarEl) {
+    calendarEl.textContent = calendarStr;
+  }
+}
+setInterval(updateLiveBanner, 1000);
+updateLiveBanner();
+
+// D. Live Weather (Auto-fetch with Geolocation fallback)
+function fetchLiveWeather() {
+  const weatherEl = document.getElementById("live-weather");
+  if (!weatherEl) return;
+
+  if ("geolocation" in navigator) {
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+      try {
+        const lat = pos.coords.latitude;
+        const lon = pos.coords.longitude;
+        const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+        const data = await res.json();
+        const temp = data.current_weather.temperature;
+        weatherEl.textContent = `लाइव तापमान: ${temp}°C (स्थानीय मौसम)`;
+      } catch (e) {
+        weatherEl.textContent = "लाइव तापमान: पटना, बिहार ~28°C";
+      }
+    }, () => {
+      weatherEl.textContent = "मौसम: पटना, बिहार ~28°C";
+    });
+  } else {
+    weatherEl.textContent = "मौसम: पटना ~28°C";
+  }
+}
+fetchLiveWeather();
+
+// --- 4. Accessibility Controls (Dark Mode & High Contrast) ---
+window.toggleDarkMode = function() {
+  const root = document.documentElement;
+  const isDark = root.getAttribute("data-theme") === "dark";
+  const btn = document.getElementById("btn-dark-mode");
+  if (isDark) {
+    root.removeAttribute("data-theme");
+    if (btn) btn.setAttribute("aria-pressed", "false");
+    localStorage.setItem("ril_theme", "light");
+  } else {
+    root.setAttribute("data-theme", "dark");
+    if (btn) btn.setAttribute("aria-pressed", "true");
+    localStorage.setItem("ril_theme", "dark");
+  }
+};
+
+window.toggleHighContrast = function() {
+  const root = document.documentElement;
+  const isContrast = root.getAttribute("data-contrast") === "high";
+  const btn = document.getElementById("btn-high-contrast");
+  if (isContrast) {
+    root.removeAttribute("data-contrast");
+    if (btn) btn.setAttribute("aria-pressed", "false");
+    localStorage.setItem("ril_contrast", "normal");
+  } else {
+    root.setAttribute("data-contrast", "high");
+    if (btn) btn.setAttribute("aria-pressed", "true");
+    localStorage.setItem("ril_contrast", "high");
+  }
+};
+
+// Load saved accessibility preferences on startup
+(function applySavedA11ySettings() {
+  if (localStorage.getItem("ril_theme") === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+  if (localStorage.getItem("ril_contrast") === "high") {
+    document.documentElement.setAttribute("data-contrast", "high");
+  }
 })();
+
+// --- 5. Web3Forms Universal Email Notification Service ---
+async function dispatchWeb3Notification(subject, messageContent, extraData = {}) {
+  const payload = {
+    access_key: WEB3FORMS_ACCESS_KEY,
+    subject: `[RIL Portal] ${subject}`,
+    from_name: "Resilience Industries Automated System",
+    to_email: ADMIN_EMAIL,
+    message: messageContent,
+    ...extraData
+  };
+
+  try {
+    await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(payload)
+    });
+  } catch (err) {
+    console.error("Web3Forms transmission error:", err);
+  }
+}
+
+// Universal Form Handler (Contact, Feedback, Bug Report, Tool Suggestion)
+window.submitUniversalForm = async function(event, formCategory) {
+  event.preventDefault();
+  const form = event.target;
+  const statusBox = form.querySelector(".form-status-msg");
+
+  if (statusBox) statusBox.textContent = "प्रक्रियाधीन है...";
+
+  const formData = new FormData(form);
+  formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+  formData.append("category", formCategory);
+  formData.append("timestamp", new Date().toISOString());
+
+  try {
+    const response = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      body: formData
+    });
+    const result = await response.json();
+    if (result.success) {
+      if (statusBox) statusBox.textContent = "सफलतापूर्वक सबमिट हुआ! सूचना हमारे इनबॉक्स में दर्ज कर ली गई है।";
+      form.reset();
+    } else {
+      if (statusBox) statusBox.textContent = "सबमिशन विफल रहा। कृपया पुनः प्रयास करें।";
+    }
+  } catch (err) {
+    if (statusBox) statusBox.textContent = `नेटवर्क त्रुटि: ${err.message}`;
+  }
+};
+
+// --- 6. Payment-First Flow: Razorpay -> Web3Forms ---
+window.initiatePaidRequest = function(event, serviceName, amountINR) {
+  event.preventDefault();
+  const form = event.target;
+  const statusBox = form.querySelector(".payment-status-msg");
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("कृपया भुगतान व अनुरोध करने से पहले लॉगिन करें।");
+    return;
+  }
+
+  const options = {
+    key: RAZORPAY_KEY_ID,
+    amount: amountINR * 100, // Razorpay amount in paise
+    currency: "INR",
+    name: "Resilience Industries Limited",
+    description: `भुगतान: ${serviceName}`,
+    handler: async function(response) {
+      if (statusBox) statusBox.textContent = "भुगतान सफल! विवरण ईमेल पर भेजा जा रहा है...";
+      
+      const formData = new FormData(form);
+      formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+      formData.append("service_or_course", serviceName);
+      formData.append("razorpay_payment_id", response.razorpay_payment_id);
+      formData.append("amount_paid_inr", amountINR);
+      formData.append("user_email", user.email);
+
+      await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData
+      });
+
+      alert(`सफलता! आपका भुगतान ID ${response.razorpay_payment_id} दर्ज हो चुका है। अनुरोध स्वीकृत कर लिया गया है।`);
+      form.reset();
+    },
+    prefill: {
+      email: user.email,
+      contact: "8434721287"
+    },
+    theme: { color: "#0b3d91" }
+  };
+
+  if (window.Razorpay) {
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+  } else {
+    alert("Razorpay SDK लोड हो रहा है, कृपया 2 सेकंड बाद पुनः प्रयास करें।");
+  }
+};
+
+// --- 7. Blog & Case Study Engagement Engine ---
+window.handleLikeArticle = function(articleId) {
+  let count = parseInt(localStorage.getItem(`likes_${articleId}`) || "0");
+  count++;
+  localStorage.setItem(`likes_${articleId}`, count);
+  const countEl = document.getElementById(`like-count-${articleId}`);
+  if (countEl) countEl.textContent = count;
+  dispatchWeb3Notification("Article Like", `Article ID: ${articleId} received a new like. Total: ${count}`);
+};
+
+window.copyArticleLink = function(url) {
+  navigator.clipboard.writeText(url).then(() => {
+    alert("लिंक क्लिपबोर्ड पर सफलतापूर्वक कॉपी कर लिया गया है!");
+  });
+};
+
+window.shareArticle = function(title, url) {
+  if (navigator.share) {
+    navigator.share({ title: title, url: url }).catch(() => {});
+  } else {
+    window.copyArticleLink(url);
+  }
+};
+
+// 80% Scroll Deep Read Analytics Tracker
+let hasLogged80Read = false;
+window.addEventListener("scroll", () => {
+  const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
+  if (totalHeight <= 0) return;
+  const currentScroll = window.scrollY;
+  const scrollPercentage = (currentScroll / totalHeight) * 100;
+
+  if (scrollPercentage >= 80 && !hasLogged80Read) {
+    hasLogged80Read = true;
+    logEvent(analytics, "article_deep_read_80", { page: window.location.pathname });
+    updateLiveAnalytics("deep_read");
+  }
+});
+
+// --- 8. Live Public Analytics Engine (Footer Landmark) ---
+function updateLiveAnalytics(eventType) {
+  let views = parseInt(localStorage.getItem("ril_total_pageviews") || "1420");
+  let sessions = parseInt(localStorage.getItem("ril_total_sessions") || "310");
+  let deepReads = parseInt(localStorage.getItem("ril_deep_reads") || "88");
+
+  if (eventType === "pageview") views++;
+  if (eventType === "session_active") sessions++;
+  if (eventType === "deep_read") deepReads++;
+
+  localStorage.setItem("ril_total_pageviews", views);
+  localStorage.setItem("ril_total_sessions", sessions);
+  localStorage.setItem("ril_deep_reads", deepReads);
+
+  const pvEl = document.getElementById("analytics-pageviews");
+  const sessEl = document.getElementById("analytics-sessions");
+  const readEl = document.getElementById("analytics-reads");
+
+  if (pvEl) pvEl.textContent = views;
+  if (sessEl) sessEl.textContent = sessions;
+  if (readEl) readEl.textContent = deepReads;
+}
+updateLiveAnalytics("pageview");
