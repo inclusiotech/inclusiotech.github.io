@@ -83,11 +83,12 @@
   <!-- Master External JavaScript Engine (0% Inline JS) -->
   <script type="module" src="script.js" defer></script>
 </head>
-<body>
+<body id="top-of-page">
 
-  <!-- Skip Links -->
+  <!-- Skip Navigation Links -->
   <a href="#main-content" class="skip-link">Skip to Main Content</a>
   <a href="#main-navigation" class="skip-link">Skip to Navigation Menu</a>
+  <a href="#bottom-of-page" class="skip-link">Go to Bottom of Page</a>
 
   <!-- Invisible Container for Firebase Phone reCAPTCHA -->
   <div id="recaptcha-container"></div>
@@ -110,7 +111,7 @@
       <form id="form-login-email-tab" role="tabpanel" aria-labelledby="tab-btn-login-email" onsubmit="handleUserEmailLogin(event)">
         <div class="form-field">
           <label for="auth-login-email">Registered Email Address:</label>
-          <input type="email" id="auth-login-email" class="form-control" required autocomplete="email" placeholder="name@domain.com">
+          <input type="email" id="auth-login-email" class="form-control" required autocomplete="email" placeholder="user@example.com">
         </div>
         <div class="form-field">
           <label for="auth-login-pass">Password:</label>
@@ -121,10 +122,18 @@
 
       <!-- Tab 2: Phone Number + SMS OTP Login -->
       <form id="form-login-phone-tab" role="tabpanel" aria-labelledby="tab-btn-login-phone" style="display: none;" onsubmit="handleUserPhoneLogin(event)">
-        <div class="form-field">
-          <label for="auth-login-phone">Mobile Number (with +91):</label>
-          <input type="tel" id="auth-login-phone" class="form-control" placeholder="+91 8434721287" required>
+        <label for="auth-login-phone-number">Mobile Phone Number:</label>
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+          <select id="auth-login-country-code" class="form-control" style="max-width: 130px;" aria-label="Country Code">
+            <option value="+91" selected>India (+91)</option>
+            <option value="+1">USA / CAN (+1)</option>
+            <option value="+44">UK (+44)</option>
+            <option value="+971">UAE (+971)</option>
+            <option value="+61">Australia (+61)</option>
+          </select>
+          <input type="tel" id="auth-login-phone-number" class="form-control" pattern="[0-9]{10}" maxlength="10" placeholder="9876543210" required aria-label="10 digit phone number">
         </div>
+
         <button type="button" id="btn-send-login-otp" class="btn-ctrl" style="margin-bottom: 1rem; width: 100%;" onclick="requestLoginPhoneOTP()">
           Send Login SMS OTP
         </button>
@@ -138,7 +147,7 @@
         </div>
       </form>
 
-      <!-- Tab 3: Detailed Sign Up Form with Dual Verification -->
+      <!-- Tab 3: Sign Up Form with Consent & Step-by-Step Verification -->
       <form id="form-signup-tab" role="tabpanel" aria-labelledby="tab-btn-signup" style="display: none;" onsubmit="handleUserSignUp(event)">
         <div class="form-field">
           <label for="auth-signup-name">Full Name:</label>
@@ -147,7 +156,7 @@
         <div style="display: flex; gap: 1rem;">
           <div class="form-field" style="flex: 1;">
             <label for="auth-signup-age">Age:</label>
-            <input type="number" id="auth-signup-age" class="form-control" required min="10" max="120" placeholder="24">
+            <input type="number" id="auth-signup-age" class="form-control" required min="10" max="120" placeholder="25">
           </div>
           <div class="form-field" style="flex: 1;">
             <label for="auth-signup-gender">Gender:</label>
@@ -160,13 +169,22 @@
             </select>
           </div>
         </div>
-        <div class="form-field">
-          <label for="auth-signup-phone">Mobile Number (with +91):</label>
-          <input type="tel" id="auth-signup-phone" class="form-control" required placeholder="+91 8434721287">
+
+        <label for="auth-signup-phone-number">Mobile Phone Number:</label>
+        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
+          <select id="auth-signup-country-code" class="form-control" style="max-width: 130px;" aria-label="Country Code">
+            <option value="+91" selected>India (+91)</option>
+            <option value="+1">USA / CAN (+1)</option>
+            <option value="+44">UK (+44)</option>
+            <option value="+971">UAE (+971)</option>
+            <option value="+61">Australia (+61)</option>
+          </select>
+          <input type="tel" id="auth-signup-phone-number" class="form-control" pattern="[0-9]{10}" maxlength="10" placeholder="9876543210" required aria-label="10 digit phone number">
         </div>
+
         <div class="form-field">
           <label for="auth-signup-email">Official Email Address:</label>
-          <input type="email" id="auth-signup-email" class="form-control" required autocomplete="email" placeholder="name@domain.com">
+          <input type="email" id="auth-signup-email" class="form-control" required autocomplete="email" placeholder="user@example.com">
         </div>
         <div class="form-field">
           <label for="auth-signup-pass">Create Password:</label>
@@ -176,9 +194,22 @@
           <label for="auth-signup-confirm">Confirm Password:</label>
           <input type="password" id="auth-signup-confirm" class="form-control" required autocomplete="new-password" placeholder="Re-enter password">
         </div>
+
+        <!-- Mandatory Declaration Checkbox -->
+        <div class="form-field" style="margin: 1.2rem 0; background: var(--surface-color); padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 6px;">
+          <label style="display: flex; align-items: flex-start; gap: 0.6rem; font-weight: normal; font-size: 0.95rem; cursor: pointer;">
+            <input type="checkbox" id="auth-signup-declaration" required style="margin-top: 0.25rem; width: 1.2rem; height: 1.2rem;">
+            <span>
+              I hereby declare that I have read and agree to the 
+              <a href="terms.html" target="_blank" rel="noopener noreferrer" style="color: var(--primary-color); font-weight: bold;">Terms of Use</a>, 
+              <a href="privacy-policy.html" target="_blank" rel="noopener noreferrer" style="color: var(--primary-color); font-weight: bold;">Privacy Policy</a>, and 
+              <a href="refund-policy.html" target="_blank" rel="noopener noreferrer" style="color: var(--primary-color); font-weight: bold;">Refund Policy</a>.
+            </span>
+          </label>
+        </div>
         
         <button type="button" id="btn-send-signup-otp" class="btn-ctrl" style="margin-bottom: 1rem; width: 100%;" onclick="requestSignupPhoneOTP()">
-          Send Phone Verification OTP
+          1. Send Phone Verification OTP
         </button>
 
         <div id="signup-otp-group" style="display: none;">
@@ -186,7 +217,9 @@
             <label for="auth-signup-otp">Enter 6-Digit SMS OTP Received on Phone:</label>
             <input type="text" id="auth-signup-otp" class="form-control" maxlength="6" placeholder="123456">
           </div>
-          <button type="submit" class="btn-primary" style="width: 100%;">Verify Phone, Create Account & Send Email Link</button>
+          <button type="submit" class="btn-primary" style="width: 100%;">
+            2. Verify Phone & Send Email Verification Link
+          </button>
         </div>
       </form>
 
@@ -194,7 +227,7 @@
       <form id="form-reset-tab" role="tabpanel" aria-labelledby="tab-btn-reset" style="display: none;" onsubmit="handlePasswordReset(event)">
         <div class="form-field">
           <label for="auth-reset-email">Registered Email Address:</label>
-          <input type="email" id="auth-reset-email" class="form-control" required autocomplete="email" placeholder="name@domain.com">
+          <input type="email" id="auth-reset-email" class="form-control" required autocomplete="email" placeholder="user@example.com">
         </div>
         <button type="submit" class="btn-primary" style="width: 100%;">Dispatch Reset Link</button>
       </form>
@@ -206,6 +239,11 @@
 
   <!-- Main Website Wrapper (Rendered Only Upon Verified Session) -->
   <div id="main-site-wrapper" style="display: none;" aria-hidden="true">
+
+    <!-- Top Quick Navigation Control (Go to Bottom) -->
+    <div class="container" style="display: flex; justify-content: flex-end; padding-top: 0.5rem;">
+      <a href="#bottom-of-page" class="btn-ctrl" style="text-decoration: none; font-size: 0.85rem;">⬇ Go to Bottom</a>
+    </div>
 
     <!-- Banner Landmark -->
     <header role="banner">
@@ -383,9 +421,14 @@
     </main>
 
     <!-- Footer Landmark (Contentinfo & Public Web Analytics) -->
-    <footer role="contentinfo">
+    <footer id="bottom-of-page" role="contentinfo">
       <div class="container">
         
+        <!-- Bottom Quick Navigation Control (Back to Top) -->
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 1.5rem;">
+          <a href="#top-of-page" class="btn-ctrl" style="text-decoration: none; font-size: 0.9rem;">⬆ Back to Top</a>
+        </div>
+
         <div class="footer-grid">
           
           <!-- Real-Time Public Analytics -->
