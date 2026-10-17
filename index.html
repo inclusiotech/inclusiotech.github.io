@@ -85,24 +85,15 @@
 </head>
 <body id="top-of-page">
 
-  <!-- Skip Navigation Links -->
-  <a href="#main-content" class="skip-link">Skip to Main Content</a>
-  <a href="#main-navigation" class="skip-link">Skip to Navigation Menu</a>
-  <a href="#bottom-of-page" class="skip-link">Go to Bottom of Page</a>
-
-  <!-- Invisible Container for Firebase Phone reCAPTCHA -->
-  <div id="recaptcha-container"></div>
-
-  <!-- Mandatory Authentication Wall Modal -->
+  <!-- Mandatory Authentication Wall Modal (Strict Zero-Preview Lock) -->
   <div id="auth-gate-modal" class="auth-gate-overlay" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
     <div class="auth-gate-box">
       <h2 id="auth-modal-title">Access Gateway | Resilience Industries</h2>
-      <p style="margin-bottom: 1.2rem; font-size: 0.95rem;">Please authenticate using Email or Mobile Phone to access our enterprise portal and auditing tools.</p>
+      <p style="margin-bottom: 1.2rem; font-size: 0.95rem;">Please authenticate with your official email to access enterprise audits, consulting, and research portals.</p>
       
       <!-- Authentication Tabs -->
       <div class="auth-tabs" role="tablist" aria-label="Authentication Methods">
-        <button id="tab-btn-login-email" class="auth-tab-btn" role="tab" aria-selected="true" aria-controls="form-login-email-tab" onclick="switchAuthTab('login-email')">Email Sign In</button>
-        <button id="tab-btn-login-phone" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-login-phone-tab" onclick="switchAuthTab('login-phone')">Phone OTP Sign In</button>
+        <button id="tab-btn-login-email" class="auth-tab-btn" role="tab" aria-selected="true" aria-controls="form-login-email-tab" onclick="switchAuthTab('login-email')">Sign In</button>
         <button id="tab-btn-signup" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-signup-tab" onclick="switchAuthTab('signup')">Sign Up</button>
         <button id="tab-btn-reset" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-reset-tab" onclick="switchAuthTab('reset')">Reset Password</button>
       </div>
@@ -117,37 +108,10 @@
           <label for="auth-login-pass">Password:</label>
           <input type="password" id="auth-login-pass" class="form-control" required autocomplete="current-password" placeholder="••••••••">
         </div>
-        <button type="submit" class="btn-primary" style="width: 100%;">Sign In with Password</button>
+        <button type="submit" class="btn-primary" style="width: 100%;">Sign In</button>
       </form>
 
-      <!-- Tab 2: Phone Number + SMS OTP Login -->
-      <form id="form-login-phone-tab" role="tabpanel" aria-labelledby="tab-btn-login-phone" style="display: none;" onsubmit="handleUserPhoneLogin(event)">
-        <label for="auth-login-phone-number">Mobile Phone Number:</label>
-        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
-          <select id="auth-login-country-code" class="form-control" style="max-width: 130px;" aria-label="Country Code">
-            <option value="+91" selected>India (+91)</option>
-            <option value="+1">USA / CAN (+1)</option>
-            <option value="+44">UK (+44)</option>
-            <option value="+971">UAE (+971)</option>
-            <option value="+61">Australia (+61)</option>
-          </select>
-          <input type="tel" id="auth-login-phone-number" class="form-control" pattern="[0-9]{10}" maxlength="10" placeholder="9876543210" required aria-label="10 digit phone number">
-        </div>
-
-        <button type="button" id="btn-send-login-otp" class="btn-ctrl" style="margin-bottom: 1rem; width: 100%;" onclick="requestLoginPhoneOTP()">
-          Send Login SMS OTP
-        </button>
-
-        <div id="login-otp-group" style="display: none;">
-          <div class="form-field">
-            <label for="auth-login-otp">Enter 6-Digit SMS OTP:</label>
-            <input type="text" id="auth-login-otp" class="form-control" maxlength="6" placeholder="123456">
-          </div>
-          <button type="submit" class="btn-primary" style="width: 100%;">Verify OTP & Sign In</button>
-        </div>
-      </form>
-
-      <!-- Tab 3: Sign Up Form with Consent & Step-by-Step Verification -->
+      <!-- Tab 2: Sign Up Form (Country Dropdown Included, Phone Input Removed) -->
       <form id="form-signup-tab" role="tabpanel" aria-labelledby="tab-btn-signup" style="display: none;" onsubmit="handleUserSignUp(event)">
         <div class="form-field">
           <label for="auth-signup-name">Full Name:</label>
@@ -170,16 +134,19 @@
           </div>
         </div>
 
-        <label for="auth-signup-phone-number">Mobile Phone Number:</label>
-        <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem;">
-          <select id="auth-signup-country-code" class="form-control" style="max-width: 130px;" aria-label="Country Code">
-            <option value="+91" selected>India (+91)</option>
-            <option value="+1">USA / CAN (+1)</option>
-            <option value="+44">UK (+44)</option>
-            <option value="+971">UAE (+971)</option>
-            <option value="+61">Australia (+61)</option>
+        <div class="form-field">
+          <label for="auth-signup-country">Country of Residence:</label>
+          <select id="auth-signup-country" class="form-control" required>
+            <option value="India" selected>India</option>
+            <option value="United States">United States</option>
+            <option value="United Kingdom">United Kingdom</option>
+            <option value="Canada">Canada</option>
+            <option value="Australia">Australia</option>
+            <option value="United Arab Emirates">United Arab Emirates</option>
+            <option value="Germany">Germany</option>
+            <option value="Singapore">Singapore</option>
+            <option value="Other">Other</option>
           </select>
-          <input type="tel" id="auth-signup-phone-number" class="form-control" pattern="[0-9]{10}" maxlength="10" placeholder="9876543210" required aria-label="10 digit phone number">
         </div>
 
         <div class="form-field">
@@ -195,7 +162,7 @@
           <input type="password" id="auth-signup-confirm" class="form-control" required autocomplete="new-password" placeholder="Re-enter password">
         </div>
 
-        <!-- Mandatory Declaration Checkbox -->
+        <!-- Mandatory Declaration & Policy Agreement Checkbox -->
         <div class="form-field" style="margin: 1.2rem 0; background: var(--surface-color); padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 6px;">
           <label style="display: flex; align-items: flex-start; gap: 0.6rem; font-weight: normal; font-size: 0.95rem; cursor: pointer;">
             <input type="checkbox" id="auth-signup-declaration" required style="margin-top: 0.25rem; width: 1.2rem; height: 1.2rem;">
@@ -208,22 +175,12 @@
           </label>
         </div>
         
-        <button type="button" id="btn-send-signup-otp" class="btn-ctrl" style="margin-bottom: 1rem; width: 100%;" onclick="requestSignupPhoneOTP()">
-          1. Send Phone Verification OTP
+        <button type="submit" class="btn-primary" style="width: 100%;">
+          Create Account & Send Verification Link
         </button>
-
-        <div id="signup-otp-group" style="display: none;">
-          <div class="form-field">
-            <label for="auth-signup-otp">Enter 6-Digit SMS OTP Received on Phone:</label>
-            <input type="text" id="auth-signup-otp" class="form-control" maxlength="6" placeholder="123456">
-          </div>
-          <button type="submit" class="btn-primary" style="width: 100%;">
-            2. Verify Phone & Send Email Verification Link
-          </button>
-        </div>
       </form>
 
-      <!-- Tab 4: Password Reset Form -->
+      <!-- Tab 3: Password Reset Form -->
       <form id="form-reset-tab" role="tabpanel" aria-labelledby="tab-btn-reset" style="display: none;" onsubmit="handlePasswordReset(event)">
         <div class="form-field">
           <label for="auth-reset-email">Registered Email Address:</label>
@@ -237,8 +194,13 @@
     </div>
   </div>
 
-  <!-- Main Website Wrapper (Rendered Only Upon Verified Session) -->
-  <div id="main-site-wrapper" style="display: none;" aria-hidden="true">
+  <!-- Main Website Wrapper (Strictly Hidden with No Preview Until Verified Session) -->
+  <div id="main-site-wrapper" style="display: none !important; visibility: hidden;" aria-hidden="true">
+
+    <!-- Skip Navigation Links -->
+    <a href="#main-content" class="skip-link">Skip to Main Content</a>
+    <a href="#main-navigation" class="skip-link">Skip to Navigation Menu</a>
+    <a href="#bottom-of-page" class="skip-link">Go to Bottom of Page</a>
 
     <!-- Top Quick Navigation Control (Go to Bottom) -->
     <div class="container" style="display: flex; justify-content: flex-end; padding-top: 0.5rem;">
