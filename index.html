@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="hi" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resilience Industries Limited | डिजिटल एक्सेसिबिलिटी, WCAG 2.2 AAA ऑडिटिंग एवं असिस्टिव सॉल्यूशन्स</title>
+  <title>Resilience Industries Limited | Digital Accessibility & Assistive Tech Solutions</title>
   
-  <!-- SEO एवं प्राथमिक मेटा टैग्स -->
-  <meta name="description" content="Resilience Industries Limited (RIL) - विश्वस्तरीय डिजिटल एक्सेसिबिलिटी, WCAG 2.2 AA/AAA ऑडिटिंग, VPAT रिपोर्टिंग और सहायक तकनीक समाधान।">
-  <meta name="keywords" content="Accessibility, WCAG 2.2, VPAT, Screen Reader, NVDA, TalkBack, RIL, Nitesh Kumar">
+  <!-- SEO & Primary Meta Tags -->
+  <meta name="description" content="Resilience Industries Limited (RIL) - Enterprise digital accessibility consulting, WCAG 2.2 AA/AAA auditing, VPAT ACR reporting, and assistive technology solutions.">
+  <meta name="keywords" content="Accessibility, WCAG 2.2, VPAT, Screen Reader, NVDA, TalkBack, JAWS, Digital Inclusion, RIL, Nitesh Kumar">
   <meta name="author" content="Nitesh Kumar">
   <meta name="theme-color" content="#0b3d91">
 
-  <!-- Open Graph / सोशल मीडिया कार्ड्स -->
-  <meta property="og:title" content="Resilience Industries Limited | सेंटर फॉर डिजिटल एक्सेसिबिलिटी">
-  <meta property="og:description" content="विश्वस्तरीय डिजिटल एक्सेसिबिलिटी, स्क्रीन रीडर ऑडिटिंग एवं कंसल्टेंसी सेवाएं।">
+  <!-- Open Graph & Social Cards -->
+  <meta property="og:title" content="Resilience Industries Limited | Center for Digital Accessibility">
+  <meta property="og:description" content="World-class digital accessibility engineering, screen reader auditing, and compliance services.">
   <meta property="og:url" content="https://resilience-industries.github.io/">
   <meta property="og:type" content="website">
 
@@ -46,110 +46,110 @@
   }
   </script>
 
-  <!-- केवल बाहरी स्टाइलशीट (No Inline CSS) -->
+  <!-- External Stylesheet (0% Inline CSS) -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- तृतीय-पक्ष SDKs (Razorpay & reCAPTCHA v3) -->
+  <!-- Third-Party SDKs (Razorpay & reCAPTCHA v3) -->
   <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
   <script src="https://www.google.com/recaptcha/api.js?render=6Ldur_MtAAAAAGQlqUGYPk6103KttHViERKln2NF" async defer></script>
 
-  <!-- केवल मुख्य बाहरी जावास्क्रिप्ट मॉड्यूल (No Inline JS) -->
+  <!-- External JavaScript Engine (0% Inline JS) -->
   <script type="module" src="script.js" defer></script>
 </head>
 <body>
 
-  <!-- 1. कीबोर्ड एवं स्क्रीन रीडर उपयोगकर्ताओं के लिए स्किप लिंक्स -->
-  <a href="#main-content" class="skip-link">सीधे मुख्य सामग्री पर जाएँ (Skip to Content)</a>
-  <a href="#main-navigation" class="skip-link">सीधे नेविगेशन मेन्यू पर जाएँ (Skip to Navigation)</a>
+  <!-- 1. Skip Links for Screen Reader & Keyboard Navigation -->
+  <a href="#main-content" class="skip-link">Skip to Main Content</a>
+  <a href="#main-navigation" class="skip-link">Skip to Navigation Menu</a>
 
-  <!-- 2. अनिवार्य ऑथ-गेटवे मोडल (लॉगिन/साइन-अप वॉल) -->
+  <!-- 2. Mandatory Auth Gate Modal (Enforced Authentication Wall) -->
   <div id="auth-gate-modal" class="auth-gate-overlay" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
     <div class="auth-gate-box">
-      <h2 id="auth-modal-title" style="margin-bottom: 0.5rem;">प्रवेश द्वार | Resilience Industries Limited</h2>
-      <p style="margin-bottom: 1.2rem; font-size: 0.95rem;">पोर्टल की सामग्री, टूल्स और सेवाओं का उपयोग करने के लिए कृपया लॉगिन करें अथवा नया खाता बनाएँ।</p>
+      <h2 id="auth-modal-title" style="margin-bottom: 0.5rem;">Access Gateway | Resilience Industries</h2>
+      <p style="margin-bottom: 1.2rem; font-size: 0.95rem;">Please log in or create an account to access our research, auditing tools, courses, and client portals.</p>
       
-      <!-- टैब स्विचर -->
-      <div class="auth-tabs" role="tablist" aria-label="प्रमाणीकरण विकल्प">
-        <button id="tab-btn-login" class="auth-tab-btn" role="tab" aria-selected="true" aria-controls="form-login-tab" onclick="switchAuthTab('login')">लॉगिन</button>
-        <button id="tab-btn-signup" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-signup-tab" onclick="switchAuthTab('signup')">नया खाता (Sign Up)</button>
-        <button id="tab-btn-reset" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-reset-tab" onclick="switchAuthTab('reset')">पासवर्ड भूल गए?</button>
+      <!-- Tab Controls -->
+      <div class="auth-tabs" role="tablist" aria-label="Authentication Options">
+        <button id="tab-btn-login" class="auth-tab-btn" role="tab" aria-selected="true" aria-controls="form-login-tab" onclick="switchAuthTab('login')">Sign In</button>
+        <button id="tab-btn-signup" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-signup-tab" onclick="switchAuthTab('signup')">Sign Up</button>
+        <button id="tab-btn-reset" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-reset-tab" onclick="switchAuthTab('reset')">Forgot Password?</button>
       </div>
 
-      <!-- लॉगिन फ़ॉर्म -->
+      <!-- Sign In Form -->
       <form id="form-login-tab" role="tabpanel" aria-labelledby="tab-btn-login" onsubmit="handleUserLogin(event)">
         <div class="form-field">
-          <label for="auth-login-email">पंजीकृत ईमेल आईडी:</label>
+          <label for="auth-login-email">Registered Email Address:</label>
           <input type="email" id="auth-login-email" class="form-control" required autocomplete="email" placeholder="name@example.com">
         </div>
         <div class="form-field">
-          <label for="auth-login-pass">पासवर्ड:</label>
+          <label for="auth-login-pass">Password:</label>
           <input type="password" id="auth-login-pass" class="form-control" required autocomplete="current-password" placeholder="••••••••">
         </div>
-        <button type="submit" class="btn-primary" style="width: 100%;">लॉगिन करें</button>
+        <button type="submit" class="btn-primary" style="width: 100%;">Sign In</button>
       </form>
 
-      <!-- साइन-अप फ़ॉर्म -->
+      <!-- Sign Up Form -->
       <form id="form-signup-tab" role="tabpanel" aria-labelledby="tab-btn-signup" style="display: none;" onsubmit="handleUserSignUp(event)">
         <div class="form-field">
-          <label for="auth-signup-email">आधिकारिक ईमेल आईडी:</label>
+          <label for="auth-signup-email">Official Email Address:</label>
           <input type="email" id="auth-signup-email" class="form-control" required autocomplete="email" placeholder="name@example.com">
         </div>
         <div class="form-field">
-          <label for="auth-signup-pass">मजबूत पासवर्ड बनाएँ:</label>
-          <input type="password" id="auth-signup-pass" class="form-control" required autocomplete="new-password" placeholder="कम से कम 6 अक्षर">
+          <label for="auth-signup-pass">Create Password:</label>
+          <input type="password" id="auth-signup-pass" class="form-control" required autocomplete="new-password" placeholder="Minimum 6 characters">
         </div>
         <div class="form-field">
-          <label for="auth-signup-confirm">पासवर्ड की पुष्टि करें:</label>
-          <input type="password" id="auth-signup-confirm" class="form-control" required autocomplete="new-password" placeholder="पासवर्ड दोबारा लिखें">
+          <label for="auth-signup-confirm">Confirm Password:</label>
+          <input type="password" id="auth-signup-confirm" class="form-control" required autocomplete="new-password" placeholder="Re-type password">
         </div>
-        <button type="submit" class="btn-primary" style="width: 100%;">खाता बनाएँ एवं सत्यापन भेजें</button>
+        <button type="submit" class="btn-primary" style="width: 100%;">Register & Send Verification Link</button>
       </form>
 
-      <!-- पासवर्ड रीसेट फ़ॉर्म -->
+      <!-- Forgot Password / Reset Form -->
       <form id="form-reset-tab" role="tabpanel" aria-labelledby="tab-btn-reset" style="display: none;" onsubmit="handlePasswordReset(event)">
         <div class="form-field">
-          <label for="auth-reset-email">पंजीकृत ईमेल आईडी दर्ज करें:</label>
+          <label for="auth-reset-email">Enter Registered Email:</label>
           <input type="email" id="auth-reset-email" class="form-control" required autocomplete="email" placeholder="name@example.com">
         </div>
-        <button type="submit" class="btn-primary" style="width: 100%;">पासवर्ड रीसेट लिंक भेजें</button>
+        <button type="submit" class="btn-primary" style="width: 100%;">Send Password Reset Link</button>
       </form>
 
-      <!-- लाइव स्टेटस संदेश (स्क्रीन रीडर अलर्ट) -->
+      <!-- Screen Reader Live Status Region -->
       <div id="auth-status-message" class="auth-status-alert" role="status" aria-live="polite"></div>
     </div>
   </div>
 
-  <!-- 3. मुख्य वेबसाइट रैपर (लॉगिन से पहले हिडन रहेगा) -->
+  <!-- 3. Main Site Wrapper (Hidden Until Authentication Verified) -->
   <div id="main-site-wrapper" style="display: none;" aria-hidden="true">
 
-    <!-- बैनर लैंडमार्क (Banner Landmark) -->
+    <!-- Banner Landmark -->
     <header role="banner">
       <div class="container">
         <div class="banner-grid">
           
           <div class="brand-section">
-            <img src="assets/images/logo.png" alt="रेज़िलिएंस इंडस्ट्रीज़ लिमिटेड आधिकारिक लोगो - नितेश कुमार" class="company-logo" onerror="this.src='logo.png'; this.onerror=null;">
+            <img src="assets/images/logo.png" alt="Resilience Industries Limited Official Logo - Nitesh Kumar" class="company-logo" onerror="this.src='logo.png'; this.onerror=null;">
             <div>
               <h1 class="brand-title">Resilience Industries Limited</h1>
-              <p class="brand-tagline">सेंटर फॉर डिजिटल एक्सेसिबिलिटी, WCAG 2.2 AAA कंप्लायंस एवं असिस्टिव टेक्नोलॉजी लैब्स</p>
+              <p class="brand-tagline">Center for Digital Accessibility, WCAG 2.2 AAA Compliance & Assistive Tech Labs</p>
             </div>
           </div>
 
-          <!-- लाइव ऑटो-अपडेटिंग इन्फो कार्ड -->
-          <div class="dynamic-banner-info" role="region" aria-label="लाइव मौसम, समय एवं अभिवादन">
-            <div id="banner-greeting" class="banner-greeting-text">नमस्ते | रेज़िलिएंस इंडस्ट्रीज़ लिमिटेड</div>
+          <!-- Live Dynamic Info (Clock, Calendar, Weather, Greeting) -->
+          <div class="dynamic-banner-info" role="region" aria-label="Live Metrics and Greetings">
+            <div id="banner-greeting" class="banner-greeting-text">Welcome to Resilience Industries Limited</div>
             <div class="live-metrics-row">
-              <div>⏰ समय: <span id="live-clock">--:--:--</span></div>
-              <div>📅 <span id="live-calendar">दिनांक लोड हो रहा है...</span></div>
+              <div>⏰ Time: <span id="live-clock">--:--:--</span></div>
+              <div>📅 <span id="live-calendar">Loading date...</span></div>
             </div>
-            <div id="live-weather">लाइव मौसम डेटा लोड हो रहा है...</div>
+            <div id="live-weather">Loading live weather data...</div>
           </div>
 
-          <!-- एक्सेसिबिलिटी टूल्स एवं सेशन प्रोफाइल -->
-          <div class="a11y-controls-group" role="region" aria-label="डिस्प्ले एवं सत्र सेटिंग्स">
-            <button id="btn-dark-mode" class="btn-ctrl" aria-pressed="false" onclick="toggleDarkMode()">🌓 डार्क मोड</button>
-            <button id="btn-high-contrast" class="btn-ctrl" aria-pressed="false" onclick="toggleHighContrast()">👁️ हाई कंट्रास्ट</button>
-            <button class="btn-ctrl" onclick="handleUserLogout()" style="color: #c0392b;">लॉग आउट</button>
+          <!-- Accessibility Display Controls & Profile -->
+          <div class="a11y-controls-group" role="region" aria-label="Accessibility Settings">
+            <button id="btn-dark-mode" class="btn-ctrl" aria-pressed="false" onclick="toggleDarkMode()">🌓 Dark Mode</button>
+            <button id="btn-high-contrast" class="btn-ctrl" aria-pressed="false" onclick="toggleHighContrast()">👁️ High Contrast</button>
+            <button class="btn-ctrl" onclick="handleUserLogout()" style="color: #c0392b;">Sign Out</button>
           </div>
 
         </div>
@@ -157,121 +157,121 @@
       </div>
     </header>
 
-    <!-- नेविगेशन लैंडमार्क (14 आधिकारिक पेजों की सूची) -->
-    <nav id="main-navigation" role="navigation" aria-label="मुख्य वेबसाइट मेन्यू">
+    <!-- Navigation Landmark (All 14 Official Pages) -->
+    <nav id="main-navigation" role="navigation" aria-label="Main Navigation">
       <div class="container">
         <ul class="nav-links-list">
-          <li><a href="index.html" aria-current="page">होम (Home)</a></li>
-          <li><a href="about.html">हमारे बारे में (About Us)</a></li>
-          <li><a href="services.html">सेवाएं (Services)</a></li>
-          <li><a href="audits.html">एक्सेसिबिलिटी ऑडिट (Audits)</a></li>
-          <li><a href="vpat.html">VPAT सेवाएं (VPAT / ACR)</a></li>
-          <li><a href="courses.html">कोर्सेज एवं ट्रेनिंग (Courses)</a></li>
-          <li><a href="tools.html">टूल्स एवं लैब्स (Tools)</a></li>
-          <li><a href="faq.html">सामान्य प्रश्न (FAQ)</a></li>
-          <li><a href="contact.html">संपर्क करें (Contact)</a></li>
-          <li><a href="login.html">लॉगिन (Login)</a></li>
-          <li><a href="signup.html">रजिस्ट्रेशन (Sign Up)</a></li>
-          <li><a href="sitemap.html">साइटमैप (Sitemap)</a></li>
-          <li><a href="accessibility-statement.html">एक्सेसिबिलिटी स्टेटमेंट</a></li>
-          <li><a href="privacy-policy.html">गोपनीयता नीति (Privacy Policy)</a></li>
+          <li><a href="index.html" aria-current="page">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="audits.html">Accessibility Audits</a></li>
+          <li><a href="vpat.html">VPAT / ACR</a></li>
+          <li><a href="courses.html">Courses & Training</a></li>
+          <li><a href="tools.html">Tools & Labs</a></li>
+          <li><a href="faq.html">FAQ</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="signup.html">Sign Up</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+          <li><a href="accessibility-statement.html">Accessibility Statement</a></li>
+          <li><a href="privacy-policy.html">Privacy Policy</a></li>
         </ul>
       </div>
     </nav>
 
-    <!-- मुख्य लैंडमार्क (Main Content Landmark) -->
+    <!-- Main Content Landmark -->
     <main id="main-content" role="main">
       <div class="container">
         
-        <!-- यूनिवर्सल सर्च लैंडमार्क -->
-        <section role="search" aria-label="वेबसाइट पर खोजें" style="margin-bottom: 2rem;">
-          <form class="form-field" onsubmit="event.preventDefault(); alert('खोज परिणाम शीघ्र प्रदर्शित होंगे।');">
-            <label for="global-search-input" class="sr-only">पोर्टल में खोजें</label>
+        <!-- Universal Search Landmark -->
+        <section role="search" aria-label="Site Search" style="margin-bottom: 2rem;">
+          <form class="form-field" onsubmit="event.preventDefault(); alert('Search results feature is processing.');">
+            <label for="global-search-input" class="sr-only">Search Website</label>
             <div style="display: flex; gap: 0.5rem;">
-              <input type="search" id="global-search-input" class="form-control" placeholder="ऑडिट, VPAT, टूल्स, कोर्सेज या नीतियां खोजें..." required>
-              <button type="submit" class="btn-primary" style="white-space: nowrap;">सर्च करें</button>
+              <input type="search" id="global-search-input" class="form-control" placeholder="Search audits, VPAT, tools, courses, or compliance standards..." required>
+              <button type="submit" class="btn-primary" style="white-space: nowrap;">Search</button>
             </div>
           </form>
         </section>
 
         <div class="main-layout-grid">
           
-          <!-- प्राथमिक सामग्री स्तंभ -->
+          <!-- Primary Content Column -->
           <div class="primary-column">
             
             <article class="card">
-              <h2>सटीक एवं प्रमाणित डिजिटल एक्सेसिबिलिटी आर्किटेक्चर</h2>
+              <h2>Certified Digital Accessibility Engineering & Compliance</h2>
               <p>
-                रेज़िलिएंस इंडस्ट्रीज़ लिमिटेड (RIL) वैश्विक स्तर पर डिजिटल प्लेटफॉर्म्स, वेब ऐप्लिकेशन्स, मोबाइल ऐप्स और दस्तावेज़ों को 
-                <strong>W3C WCAG 2.2 Conformance Levels (A, AA, AAA)</strong> और <strong>W3C WAI-ARIA 1.2</strong> के अनुरूप तैयार करता है।
+                Resilience Industries Limited (RIL) delivers enterprise-grade accessibility engineering conforming to 
+                <strong>W3C WCAG 2.2 Levels A, AA, and AAA</strong> and <strong>W3C WAI-ARIA 1.2</strong> specifications.
               </p>
               <p style="margin-top: 0.8rem;">
-                हमारा नेतृत्व 100% दृष्टिबाधित (AIIMS एवं भारत सरकार द्वारा प्रमाणित) डिजिटल एक्सेसिबिलिटी एनालिस्ट द्वारा किया जाता है, 
-                जो स्वचालित उपकरणों के साथ-साथ वास्तविक स्क्रीन रीडर्स (TalkBack, NVDA, JAWS) द्वारा गहन मैन्युअल परीक्षण सुनिश्चित करता है।
+                Led by an AIIMS-certified, 100% blind accessibility specialist, our laboratory combines automated testing pipelines 
+                with rigorous native screen reader validation (TalkBack, NVDA, and JAWS) to eliminate digital barriers.
               </p>
             </article>
 
-            <!-- मुख्य सेवाएं -->
+            <!-- Core Services Overview -->
             <section class="card" aria-labelledby="services-heading">
-              <h2 id="services-heading">हमारी मुख्य विशेषज्ञताएं</h2>
+              <h2 id="services-heading">Core Engineering Capabilities</h2>
               <ul style="padding-left: 1.5rem; margin-top: 0.8rem;">
-                <li><strong>संपूर्ण WCAG 2.2 AAA ऑडिटिंग:</strong> कोड स्ट्रक्चर, सिमेंटिक लैंडमार्क्स और कीबोर्ड ट्रैप्स का व्यापक मूल्यांकन।</li>
-                <li><strong>VPAT / ACR रिपोर्टिंग:</strong> ITI मानक अनुसार Section 508, EN 301 549 एवं वैश्विक कंप्लायंस दस्तावेज़ीकरण।</li>
-                <li><strong>डेवलपर रिमेडिएशन कोड:</strong> सीधे GitHub PR और Jira टिकट्स में तत्काल सुधार योग्य कोड समाधान।</li>
-                <li><strong>असिस्टिव टेक्नोलॉजी कंसल्टिंग:</strong> दृष्टिबाधित यूज़र्स के लिए सहज और उत्पादक डिजिटल अनुभव।</li>
+                <li><strong>Comprehensive WCAG 2.2 AAA Auditing:</strong> Deep semantic DOM analysis, focus trap mitigation, and keyboard usability verification.</li>
+                <li><strong>VPAT / ACR Authoring:</strong> Section 508, EN 301 549, and global conformance reporting using ITI templates.</li>
+                <li><strong>Developer Remediation Code:</strong> Ready-to-commit source code solutions delivered directly via Jira tickets and GitHub pull requests.</li>
+                <li><strong>Assistive Tech Consulting:</strong> Specialized digital workflows optimized for low vision and blind professionals.</li>
               </ul>
             </section>
 
-            <!-- पेमेंट-फ़र्स्ट सर्विस रिक्वेस्ट कार्ड (Razorpay Integration) -->
+            <!-- Payment-First Service Request (Razorpay Integration) -->
             <section class="card" aria-labelledby="instant-service-heading">
-              <h3 id="instant-service-heading">त्वरित एक्सेसिबिलिटी ऑडिट अनुरोध (भुगतान-प्रथम सेवा)</h3>
-              <p style="margin-bottom: 1rem;">वेबसाइट प्रारंभिक एक्सेसिबिलिटी विश्लेषण के लिए सीधे अनुरोध करें। पहले सुरक्षित भुगतान होगा, तत्पश्चात आपका विवरण हमारे रिकॉर्ड में दर्ज होगा।</p>
+              <h3 id="instant-service-heading">Book an Initial Accessibility Audit (Payment-First Workflow)</h3>
+              <p style="margin-bottom: 1rem;">Submit your platform for baseline compliance testing. Secure payment is verified before dispatching your request to our lead auditor.</p>
               
-              <form onsubmit="initiatePaidRequest(event, 'वेबसाइट प्रारंभिक ऑडिट', 500)">
+              <form onsubmit="initiatePaidRequest(event, 'Initial Website Audit', 500)">
                 <div class="form-field">
-                  <label for="audit-site-url">आपकी वेबसाइट का यूआरएल (URL):</label>
+                  <label for="audit-site-url">Platform URL:</label>
                   <input type="url" id="audit-site-url" name="client_url" class="form-control" required placeholder="https://example.com">
                 </div>
                 <div class="form-field">
-                  <label for="audit-notes">विशेष आवश्यकताएँ या प्राथमिकताएँ:</label>
-                  <textarea id="audit-notes" name="client_notes" class="form-control" rows="3" placeholder="ऑडिट के संबंध में अतिरिक्त जानकारी..."></textarea>
+                  <label for="audit-notes">Specific Testing Requirements:</label>
+                  <textarea id="audit-notes" name="client_notes" class="form-control" rows="3" placeholder="Provide URLs, scope of pages, or specific screen reader targets..."></textarea>
                 </div>
-                <button type="submit" class="btn-primary">भुगतान करें एवं ऑडिट बुक करें (₹500)</button>
+                <button type="submit" class="btn-primary">Pay & Book Initial Audit (₹500)</button>
                 <div class="payment-status-msg" role="status" aria-live="polite" style="margin-top: 0.8rem; font-weight: 700;"></div>
               </form>
             </section>
 
           </div>
 
-          <!-- कॉम्प्लिमेंटरी लैंडमार्क (Aside / Sidebar) -->
-          <aside role="complementary" aria-label="त्वरित सुझाव एवं प्रतिक्रिया">
+          <!-- Complementary Landmark (Aside / Sidebar) -->
+          <aside role="complementary" aria-label="Quick Inquiries and Contact">
             
-            <!-- त्वरित फ़ीडबैक एवं सुझाव फ़ॉर्म (Web3Forms Universal Dispatch) -->
+            <!-- Quick Feedback & Suggestion Form (Web3Forms Universal Dispatch) -->
             <div class="card">
-              <h3>त्वरित फ़ीडबैक एवं सुझाव</h3>
-              <p style="font-size: 0.95rem; margin-bottom: 1rem;">वेबसाइट या नए टूल्स के संबंध में अपने विचार सीधे हमारे इनबॉक्स में भेजें:</p>
+              <h3>Direct Feedback & Tool Requests</h3>
+              <p style="font-size: 0.95rem; margin-bottom: 1rem;">Share your feature requests, bugs, or accessibility suggestions directly with our engineering team:</p>
               
-              <form onsubmit="submitUniversalForm(event, 'होमपेज त्वरित सुझाव')">
+              <form onsubmit="submitUniversalForm(event, 'Homepage Quick Feedback')">
                 <div class="form-field">
-                  <label for="fb-name">आपका नाम:</label>
+                  <label for="fb-name">Full Name:</label>
                   <input type="text" id="fb-name" name="name" class="form-control" required>
                 </div>
                 <div class="form-field">
-                  <label for="fb-msg">आपका सुझाव / फ़ीडबैक:</label>
+                  <label for="fb-msg">Your Message / Feedback:</label>
                   <textarea id="fb-msg" name="message" class="form-control" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn-primary" style="width: 100%;">संदेश भेजें</button>
+                <button type="submit" class="btn-primary" style="width: 100%;">Submit Message</button>
                 <div class="form-status-msg" role="status" aria-live="polite" style="margin-top: 0.8rem; font-weight: 700;"></div>
               </form>
             </div>
 
-            <!-- संपर्क विवरण कार्ड -->
+            <!-- Official Contact Card -->
             <div class="card">
-              <h3>आधिकारिक संपर्क</h3>
-              <p><strong>नितेश कुमार</strong><br>संस्थापक एवं एक्सेसिबिलिटी एनालिस्ट</p>
+              <h3>Official Contact</h3>
+              <p><strong>Nitesh Kumar</strong><br>Founder & Lead Accessibility Analyst</p>
               <p style="margin-top: 0.6rem;">📞 <a href="tel:+918434721287" style="color: var(--primary-color);">+91 8434721287</a></p>
               <p>✉️ <a href="mailto:niteshkumar91845@gmail.com" style="color: var(--primary-color); word-break: break-all;">niteshkumar91845@gmail.com</a></p>
-              <p style="margin-top: 0.6rem;">📍 दिनकर नगर, दहीभत्ता, वार्ड 1, मसौढ़ी, पटना, बिहार - 804452</p>
+              <p style="margin-top: 0.6rem;">📍 Dinkar Nagar, Dahibhatta, Ward 1, Masaurhi, Patna, Bihar - 804452</p>
             </div>
 
           </aside>
@@ -280,56 +280,56 @@
       </div>
     </main>
 
-    <!-- फुटर लैंडमार्क (Contentinfo Landmark & Live Public Web Analytics) -->
+    <!-- Footer Landmark (Contentinfo & Public Web Analytics) -->
     <footer role="contentinfo">
       <div class="container">
         
         <div class="footer-grid">
           
-          <!-- एनालिटिक्स डैशबोर्ड कार्ड -->
-          <div class="analytics-widget" role="region" aria-label="वेबसाइट सार्वजनिक एनालिटिक्स">
-            <h3>सार्वजनिक वेब एनालिटिक्स</h3>
-            <p style="font-size: 0.9rem; margin-bottom: 0.6rem;">पारदर्शिता हेतु लाइव आगंतुक एवं पृष्ठ आंकड़े:</p>
+          <!-- Live Analytics Dashboard Card -->
+          <div class="analytics-widget" role="region" aria-label="Public Web Analytics">
+            <h3>Public Web Analytics</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 0.6rem;">Real-time visitor and page engagement metrics:</p>
             <div class="analytics-stat-row">
-              <span>कुल पेज व्यूज:</span>
+              <span>Total Pageviews:</span>
               <span id="analytics-pageviews" class="analytics-stat-val">0</span>
             </div>
             <div class="analytics-stat-row">
-              <span>सक्रिय सत्र (Sessions):</span>
+              <span>Active Sessions:</span>
               <span id="analytics-sessions" class="analytics-stat-val">0</span>
             </div>
             <div class="analytics-stat-row">
-              <span>गहन पठन (Deep Reads):</span>
+              <span>Deep Reads (80%+):</span>
               <span id="analytics-reads" class="analytics-stat-val">0</span>
             </div>
           </div>
 
-          <!-- त्वरित कानूनी लिंक्स -->
+          <!-- Legal & Compliance Links -->
           <div>
-            <h3>महत्वपूर्ण एवं कानूनी नीतियां</h3>
+            <h3>Legal & Compliance</h3>
             <ul style="list-style: none; margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.4rem;">
-              <li><a href="terms.html" style="color: var(--text-color);">नियम व शर्तें (Terms of Use)</a></li>
-              <li><a href="privacy-policy.html" style="color: var(--text-color);">गोपनीयता नीति (Privacy Policy)</a></li>
-              <li><a href="refund-policy.html" style="color: var(--text-color);">रिफंड एवं कैंसिलेशन नीति</a></li>
-              <li><a href="accessibility-statement.html" style="color: var(--text-color);">एक्सेसिबिलिटी स्टेटमेंट</a></li>
-              <li><a href="sitemap.html" style="color: var(--text-color);">साइटमैप (Sitemap)</a></li>
+              <li><a href="terms.html" style="color: var(--text-color);">Terms of Use</a></li>
+              <li><a href="privacy-policy.html" style="color: var(--text-color);">Privacy Policy</a></li>
+              <li><a href="refund-policy.html" style="color: var(--text-color);">Refund & Cancellation Policy</a></li>
+              <li><a href="accessibility-statement.html" style="color: var(--text-color);">Accessibility Statement</a></li>
+              <li><a href="sitemap.html" style="color: var(--text-color);">Sitemap</a></li>
             </ul>
           </div>
 
-          <!-- आधिकारिक सोशल मीडिया प्रोफाइल्स -->
+          <!-- Verified Social Media & Repository -->
           <div>
-            <h3>आधिकारिक प्रोफाइल्स</h3>
+            <h3>Official Channels</h3>
             <ul style="list-style: none; margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.4rem;">
-              <li><a href="https://www.linkedin.com/company/resilience-industries-limited" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">LinkedIn कंपनी पेज</a></li>
-              <li><a href="https://www.linkedin.com/in/nitesh-kumar-AT" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">LinkedIn व्यक्तिगत प्रोफाइल</a></li>
-              <li><a href="https://github.com/resilience-industries/resilience-industries.github.io" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">GitHub आधिकारिक रिपॉजिटरी</a></li>
+              <li><a href="https://www.linkedin.com/company/resilience-industries-limited" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">LinkedIn Company Page</a></li>
+              <li><a href="https://www.linkedin.com/in/nitesh-kumar-AT" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">LinkedIn Personal Profile</a></li>
+              <li><a href="https://github.com/resilience-industries/resilience-industries.github.io" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">GitHub Repository</a></li>
             </ul>
           </div>
 
         </div>
 
         <div class="copyright-bar">
-          <p>&copy; 2026 Resilience Industries Limited. सर्वाधिकार सुरक्षित। 100% WCAG 2.2 AAA एवं W3C WAI-ARIA 1.2 कंप्लायंट सिस्टम।</p>
+          <p>&copy; 2026 Resilience Industries Limited. All Rights Reserved. Conforming to WCAG 2.2 AAA & W3C WAI-ARIA 1.2 Standards.</p>
         </div>
 
       </div>
