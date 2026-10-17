@@ -1,7 +1,7 @@
 /**
  * Resilience Industries Limited (RIL)
  * Master External JavaScript Engine: script.js
- * Dual Auth (Email/Phone OTP), Sign-Out Safety Warning & Navigation Flow
+ * Email Auth Gate, Auto-Transition, Strict Leak-Proof Lock & Live Systems
  * 100% International Standard English | Strict WCAG 2.2 AAA
  */
 
@@ -12,8 +12,6 @@ import {
   onAuthStateChanged, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
-  signInWithPhoneNumber,
-  RecaptchaVerifier,
   sendPasswordResetEmail, 
   sendEmailVerification, 
   signOut 
@@ -44,10 +42,6 @@ const ADMIN_EMAIL = "niteshkumar91845@gmail.com";
 const _g_part1 = "AQ.Ab8RN6IFCiGe18VyBs0";
 const _g_part2 = "IUCOdooX9Plvsyh0Sdwc3tb5OEVHCdw";
 const GEMINI_RUNTIME_KEY = `${_g_part1}${_g_part2}`;
-
-// Global OTP Confirmation Holders
-let phoneConfirmationResult = null;
-let signupPhoneConfirmationResult = null;
 
 // --- 2. Sequential Permissions Workflow (Location -> Push Notification) ---
 function triggerSequentialPermissions() {
@@ -93,18 +87,17 @@ function requestPushNotificationPermission() {
 
 window.addEventListener("load", triggerSequentialPermissions);
 
-// --- 3. Authentication Gatekeeper & State Monitor ---
+// --- 3. Authentication Gatekeeper & State Monitor (Zero Preview Leakage) ---
 const authGateModal = document.getElementById("auth-gate-modal");
 const mainSiteWrapper = document.getElementById("main-site-wrapper");
 const userGreetingBanner = document.getElementById("user-session-greeting");
 
 onAuthStateChanged(auth, (user) => {
-  const isPhoneUser = user && user.phoneNumber && !user.email;
-  const isVerifiedEmailUser = user && user.email && user.emailVerified;
-
-  if (isPhoneUser || isVerifiedEmailUser) {
+  // STRICT: Entry ONLY when user is signed in AND email link is verified
+  if (user && user.emailVerified) {
     if (mainSiteWrapper) {
-      mainSiteWrapper.style.display = "block";
+      mainSiteWrapper.style.setProperty("display", "block", "important");
+      mainSiteWrapper.style.visibility = "visible";
       mainSiteWrapper.removeAttribute("aria-hidden");
     }
     if (authGateModal) {
@@ -112,13 +105,14 @@ onAuthStateChanged(auth, (user) => {
       authGateModal.setAttribute("aria-hidden", "true");
     }
     if (userGreetingBanner) {
-      const identity = user.email || user.phoneNumber;
-      userGreetingBanner.textContent = `Active Session: ${identity} (Verified Account)`;
+      userGreetingBanner.textContent = `Active Session: ${user.email} (Verified Account)`;
     }
     updateLiveAnalytics("session_active");
   } else {
+    // Lock gate immediately. Absolute zero preview of site contents
     if (mainSiteWrapper) {
-      mainSiteWrapper.style.display = "none";
+      mainSiteWrapper.style.setProperty("display", "none", "important");
+      mainSiteWrapper.style.visibility = "hidden";
       mainSiteWrapper.setAttribute("aria-hidden", "true");
     }
     if (authGateModal) {
@@ -130,7 +124,7 @@ onAuthStateChanged(auth, (user) => {
 
 // Tab Switcher
 window.switchAuthTab = function(tabName) {
-  const tabs = ["login-email", "login-phone", "signup", "reset"];
+  const tabs = ["login-email", "signup", "reset"];
   tabs.forEach(t => {
     const form = document.getElementById(`form-${t}-tab`);
     const btn = document.getElementById(`tab-btn-${t}`);
@@ -141,19 +135,7 @@ window.switchAuthTab = function(tabName) {
   if (statusElem) statusElem.textContent = "";
 };
 
-// Helper: Firebase Recaptcha Verifier
-function getRecaptchaVerifier() {
-  if (!window.recaptchaVerifier) {
-    window.recaptchaVerifier = new RecaptchaVerifier(auth, "recaptcha-container", {
-      size: "invisible"
-    });
-  }
-  return window.recaptchaVerifier;
-}
-
 // --- 4. Login Handlers (With Auto-Redirect for Unregistered Users) ---
-
-// A. Email + Password Login
 window.handleUserEmailLogin = async function(event) {
   event.preventDefault();
   const email = document.getElementById("auth-login-email").value.trim();
@@ -164,9 +146,10 @@ window.handleUserEmailLogin = async function(event) {
     statusElem.textContent = "Verifying credentials...";
     const userCredential = await signInWithEmailAndPassword(auth, email, pass);
     
+    // Strict Verification Enforcement
     if (!userCredential.user.emailVerified) {
       await signOut(auth);
-      statusElem.textContent = "Access Denied: Your email address is not verified yet. Please check your inbox and click the verification link.";
+      statusElem.textContent = "Access Denied: Your email address is not verified yet. Please check your inbox and click the verification link before signing in.";
       return;
     }
 
@@ -174,7 +157,7 @@ window.handleUserEmailLogin = async function(event) {
     dispatchWeb3Notification("User Sign-In", `User ${email} signed in via email.`);
   } catch (error) {
     if (error.code === "auth/user-not-found" || error.code === "auth/invalid-credential") {
-      statusElem.textContent = "Account not found: You have not created an account yet. Please sign up first. Redirecting to Sign Up...";
+      statusElem.textContent = "Account not found: You have not created an account yet. Please register first. Redirecting to Sign Up...";
       setTimeout(() => {
         window.switchAuthTab("signup");
         const signupEmail = document.getElementById("auth-signup-email");
@@ -186,96 +169,17 @@ window.handleUserEmailLogin = async function(event) {
   }
 };
 
-// B. Phone OTP Login: Step 1 (Request OTP)
-window.requestLoginPhoneOTP = async function() {
-  const code = document.getElementById("auth-login-country-code").value;
-  const phoneInput = document.getElementById("auth-login-phone-number").value.trim();
-  const statusElem = document.getElementById("auth-status-message");
-
-  if (!phoneInput || phoneInput.length < 10) {
-    statusElem.textContent = "Please enter a valid 10-digit mobile number.";
-    return;
-  }
-
-  const fullPhone = `${code}${phoneInput}`;
-
-  try {
-    statusElem.textContent = "Sending SMS OTP to your phone...";
-    const appVerifier = getRecaptchaVerifier();
-    phoneConfirmationResult = await signInWithPhoneNumber(auth, fullPhone, appVerifier);
-    document.getElementById("login-otp-group").style.display = "block";
-    statusElem.textContent = "6-Digit SMS OTP dispatched. Please enter it below.";
-  } catch (error) {
-    statusElem.textContent = `OTP Error: ${error.message}. If you do not have an account, please switch to Sign Up.`;
-  }
-};
-
-// Phone OTP Login: Step 2 (Verify OTP & Sign In)
-window.handleUserPhoneLogin = async function(event) {
-  event.preventDefault();
-  const otp = document.getElementById("auth-login-otp").value.trim();
-  const statusElem = document.getElementById("auth-status-message");
-
-  if (!phoneConfirmationResult) {
-    statusElem.textContent = "Please request an OTP first.";
-    return;
-  }
-
-  try {
-    statusElem.textContent = "Verifying OTP code...";
-    const result = await phoneConfirmationResult.confirm(otp);
-    statusElem.textContent = "Phone authenticated successfully! Access granted.";
-    dispatchWeb3Notification("Phone Sign-In", `User signed in with phone: ${result.user.phoneNumber}`);
-  } catch (error) {
-    statusElem.textContent = `Invalid OTP: ${error.message}`;
-  }
-};
-
-// --- 5. Sign Up Handler with Explicit Consent & Verification Dispatch ---
-
-// Step 1: Send SMS OTP to Verify Phone
-window.requestSignupPhoneOTP = async function() {
-  const code = document.getElementById("auth-signup-country-code").value;
-  const phoneInput = document.getElementById("auth-signup-phone-number").value.trim();
-  const declaration = document.getElementById("auth-signup-declaration").checked;
-  const statusElem = document.getElementById("auth-status-message");
-
-  if (!declaration) {
-    statusElem.textContent = "Please accept the Terms of Use, Privacy Policy, and Refund Policy checkbox to proceed.";
-    return;
-  }
-
-  if (!phoneInput || phoneInput.length < 10) {
-    statusElem.textContent = "Please enter a valid 10-digit mobile number.";
-    return;
-  }
-
-  const fullPhone = `${code}${phoneInput}`;
-
-  try {
-    statusElem.textContent = "Dispatching verification OTP to phone...";
-    const appVerifier = getRecaptchaVerifier();
-    signupPhoneConfirmationResult = await signInWithPhoneNumber(auth, fullPhone, appVerifier);
-    document.getElementById("signup-otp-group").style.display = "block";
-    statusElem.textContent = "SMS OTP sent. Enter the code to verify your phone number and receive your email verification link.";
-  } catch (error) {
-    statusElem.textContent = `SMS Error: ${error.message}`;
-  }
-};
-
-// Step 2: Verify Phone OTP, Create Account & Send Verification Link
+// --- 5. Sign Up Handler with Consent & Instant Auto-Transition to Sign In ---
 window.handleUserSignUp = async function(event) {
   event.preventDefault();
   const name = document.getElementById("auth-signup-name").value.trim();
   const age = document.getElementById("auth-signup-age").value.trim();
   const gender = document.getElementById("auth-signup-gender").value;
-  const code = document.getElementById("auth-signup-country-code").value;
-  const phoneInput = document.getElementById("auth-signup-phone-number").value.trim();
+  const country = document.getElementById("auth-signup-country").value;
   const email = document.getElementById("auth-signup-email").value.trim();
   const pass = document.getElementById("auth-signup-pass").value;
   const passConfirm = document.getElementById("auth-signup-confirm").value;
   const declaration = document.getElementById("auth-signup-declaration").checked;
-  const otp = document.getElementById("auth-signup-otp").value.trim();
   const statusElem = document.getElementById("auth-status-message");
 
   if (!declaration) {
@@ -288,38 +192,31 @@ window.handleUserSignUp = async function(event) {
     return;
   }
 
-  if (!signupPhoneConfirmationResult) {
-    statusElem.textContent = "Please request and verify the phone SMS OTP first.";
-    return;
-  }
-
-  const fullPhone = `${code}${phoneInput}`;
-
   try {
-    statusElem.textContent = "Validating Phone OTP...";
-    await signupPhoneConfirmationResult.confirm(otp);
-
-    statusElem.textContent = "Phone verified! Creating official account and dispatching verification link...";
+    statusElem.textContent = "Creating official account and dispatching verification link...";
     const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
+    
+    // Send Official Email Verification Link
     await sendEmailVerification(userCredential.user);
 
-    dispatchWeb3Notification("New User Provisioned", `User Dossier:\nName: ${name}\nAge: ${age}\nGender: ${gender}\nPhone (Verified): ${fullPhone}\nEmail: ${email}\nAgreed to Policies: Yes`);
+    // Dispatch full profile to admin via Web3Forms
+    dispatchWeb3Notification("New User Provisioned", `User Dossier:\nName: ${name}\nAge: ${age}\nGender: ${gender}\nCountry: ${country}\nEmail: ${email}\nAgreed to Policies: Yes`);
 
     // Ensure user remains signed out until email verification link is clicked
     await signOut(auth);
 
-    // Auto-transition to login tab and prefill email
+    // AUTOMATIC TRANSITION: Switch directly to Sign In tab and prefill email
     window.switchAuthTab("login-email");
     const loginEmailField = document.getElementById("auth-login-email");
     if (loginEmailField) loginEmailField.value = email;
 
-    statusElem.textContent = `Your phone is verified! A verification link has been sent to ${email}. Please open your email, click the link to verify your account, and then sign in.`;
+    statusElem.textContent = `Account created! A verification link has been sent to ${email}. Please check your inbox, click the link to verify, and then sign in.`;
   } catch (error) {
     statusElem.textContent = `Registration Error: ${error.message}`;
   }
 };
 
-// Password Reset Handler
+// --- 6. Password Reset Handler (With Auto-Redirect for Unregistered Emails) ---
 window.handlePasswordReset = async function(event) {
   event.preventDefault();
   const email = document.getElementById("auth-reset-email").value.trim();
@@ -331,13 +228,19 @@ window.handlePasswordReset = async function(event) {
   }
 
   try {
-    statusElem.textContent = "Dispatching password reset link...";
+    statusElem.textContent = "Verifying email registration...";
     await sendPasswordResetEmail(auth, email);
-    statusElem.textContent = "Password reset instructions have been dispatched to your email.";
+    
+    // Automatically switch to Sign In tab so user can log in after resetting password
+    window.switchAuthTab("login-email");
+    const loginEmailField = document.getElementById("auth-login-email");
+    if (loginEmailField) loginEmailField.value = email;
+
+    statusElem.textContent = `Password reset link dispatched to ${email}. Check your email to set a new password, then sign in below.`;
     dispatchWeb3Notification("Password Reset Request", `Password reset requested for: ${email}`);
   } catch (error) {
-    if (error.code === "auth/user-not-found") {
-      statusElem.textContent = "Account not found: You are not registered yet. Please create an account. Redirecting to Sign Up...";
+    if (error.code === "auth/user-not-found" || error.code === "auth/invalid-credential") {
+      statusElem.textContent = "Account not found: You are not registered yet. Please create an account first. Redirecting to Sign Up...";
       setTimeout(() => {
         window.switchAuthTab("signup");
         const signupEmail = document.getElementById("auth-signup-email");
@@ -349,7 +252,7 @@ window.handlePasswordReset = async function(event) {
   }
 };
 
-// --- Sign Out Handler with Accessible Warning / Confirmation ---
+// --- Sign Out Handler with Accessible Warning ---
 window.handleUserLogout = function() {
   const confirmLogout = window.confirm("Warning: Are you sure you want to sign out of your session? You will need to sign in again to access the portal.");
   if (confirmLogout) {
@@ -359,7 +262,7 @@ window.handleUserLogout = function() {
   }
 };
 
-// --- 6. Live Banner Updates (100% English) ---
+// --- 7. Live Banner Updates (100% English) ---
 function updateLiveBanner() {
   const now = new Date();
   const hours = now.getHours();
@@ -385,7 +288,7 @@ function updateLiveBanner() {
 setInterval(updateLiveBanner, 1000);
 updateLiveBanner();
 
-// --- 7. Navigation Menu Toggle ---
+// --- 8. Navigation Menu Toggle ---
 window.toggleNavigationMenu = function() {
   const menuList = document.getElementById("portal-nav-list");
   const toggleBtn = document.getElementById("menu-toggle-btn");
@@ -401,7 +304,7 @@ window.toggleNavigationMenu = function() {
   }
 };
 
-// --- 8. Accessibility Controls ---
+// --- 9. Accessibility Controls ---
 window.toggleDarkMode = function() {
   const root = document.documentElement;
   const isDark = root.getAttribute("data-theme") === "dark";
@@ -432,7 +335,7 @@ window.toggleHighContrast = function() {
   }
 };
 
-// --- 9. Universal Form Submissions & Payments ---
+// --- 10. Universal Form Submissions & Payments ---
 async function dispatchWeb3Notification(subject, messageContent, extraData = {}) {
   const payload = {
     access_key: WEB3FORMS_ACCESS_KEY,
@@ -505,14 +408,14 @@ window.initiatePaidRequest = function(event, serviceName, amountINR) {
       formData.append("service_or_course", serviceName);
       formData.append("razorpay_payment_id", response.razorpay_payment_id);
       formData.append("amount_paid_inr", amountINR);
-      formData.append("client_identity", user.email || user.phoneNumber);
+      formData.append("client_identity", user.email);
 
       await fetch("https://api.web3forms.com/submit", { method: "POST", body: formData });
 
       alert(`Success! Payment reference ${response.razorpay_payment_id} captured. Audit booked.`);
       form.reset();
     },
-    prefill: { email: user.email || "", contact: user.phoneNumber || "8434721287" },
+    prefill: { email: user.email || "", contact: "8434721287" },
     theme: { color: "#0b3d91" }
   };
 
@@ -524,7 +427,7 @@ window.initiatePaidRequest = function(event, serviceName, amountINR) {
   }
 };
 
-// --- 10. Live Gemini AI Copilot Integration ---
+// --- 11. Live Gemini AI Copilot Integration ---
 window.handleGeminiAssistantQuery = async function(event) {
   event.preventDefault();
   const input = document.getElementById("gemini-input");
@@ -575,7 +478,7 @@ function escapeHTML(str) {
   return str.replace(/[&<>'"]/g, tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag));
 }
 
-// --- 11. Public Live Analytics Engine ---
+// --- 12. Public Live Analytics Engine ---
 function updateLiveAnalytics(eventType) {
   let views = parseInt(localStorage.getItem("ril_total_pageviews") || "1420");
   let sessions = parseInt(localStorage.getItem("ril_total_sessions") || "310");
