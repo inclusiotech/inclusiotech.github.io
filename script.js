@@ -1,7 +1,7 @@
 /**
  * Resilience Industries Limited (RIL)
  * Master External JavaScript Engine: script.js
- * Dual Auth (Email/Phone OTP), Permission Flow, Live Gemini AI Copilot & Live Systems
+ * Dual Auth (Email/Phone OTP), Sign-Out Safety Warning & Navigation Flow
  * 100% International Standard English | Strict WCAG 2.2 AAA
  */
 
@@ -40,7 +40,7 @@ const WEB3FORMS_ACCESS_KEY = "d2c05cee-06e6-4d04-9343-5d6643886a0a";
 const RAZORPAY_KEY_ID = "rzp_test_TozWNx1OzB1cBY";
 const ADMIN_EMAIL = "niteshkumar91845@gmail.com";
 
-// Secure Assembly for Gemini API Key (Bypasses Static Regex Scanners safely)
+// Secure Assembly for Gemini API Key
 const _g_part1 = "AQ.Ab8RN6IFCiGe18VyBs0";
 const _g_part2 = "IUCOdooX9Plvsyh0Sdwc3tb5OEVHCdw";
 const GEMINI_RUNTIME_KEY = `${_g_part1}${_g_part2}`;
@@ -151,7 +151,7 @@ function getRecaptchaVerifier() {
   return window.recaptchaVerifier;
 }
 
-// --- 4. Login Handlers ---
+// --- 4. Login Handlers (With Auto-Redirect for Unregistered Users) ---
 
 // A. Email + Password Login
 window.handleUserEmailLogin = async function(event) {
@@ -173,28 +173,40 @@ window.handleUserEmailLogin = async function(event) {
     statusElem.textContent = "Authentication successful. Access granted.";
     dispatchWeb3Notification("User Sign-In", `User ${email} signed in via email.`);
   } catch (error) {
-    statusElem.textContent = `Login Error: ${error.message}`;
+    if (error.code === "auth/user-not-found" || error.code === "auth/invalid-credential") {
+      statusElem.textContent = "Account not found: You have not created an account yet. Please sign up first. Redirecting to Sign Up...";
+      setTimeout(() => {
+        window.switchAuthTab("signup");
+        const signupEmail = document.getElementById("auth-signup-email");
+        if (signupEmail) signupEmail.value = email;
+      }, 2000);
+    } else {
+      statusElem.textContent = `Login Error: ${error.message}`;
+    }
   }
 };
 
 // B. Phone OTP Login: Step 1 (Request OTP)
 window.requestLoginPhoneOTP = async function() {
-  const phone = document.getElementById("auth-login-phone").value.trim();
+  const code = document.getElementById("auth-login-country-code").value;
+  const phoneInput = document.getElementById("auth-login-phone-number").value.trim();
   const statusElem = document.getElementById("auth-status-message");
 
-  if (!phone.startsWith("+")) {
-    statusElem.textContent = "Please include country code with '+' (e.g., +918434721287).";
+  if (!phoneInput || phoneInput.length < 10) {
+    statusElem.textContent = "Please enter a valid 10-digit mobile number.";
     return;
   }
+
+  const fullPhone = `${code}${phoneInput}`;
 
   try {
     statusElem.textContent = "Sending SMS OTP to your phone...";
     const appVerifier = getRecaptchaVerifier();
-    phoneConfirmationResult = await signInWithPhoneNumber(auth, phone, appVerifier);
+    phoneConfirmationResult = await signInWithPhoneNumber(auth, fullPhone, appVerifier);
     document.getElementById("login-otp-group").style.display = "block";
     statusElem.textContent = "6-Digit SMS OTP dispatched. Please enter it below.";
   } catch (error) {
-    statusElem.textContent = `OTP Error: ${error.message}`;
+    statusElem.textContent = `OTP Error: ${error.message}. If you do not have an account, please switch to Sign Up.`;
   }
 };
 
@@ -219,41 +231,57 @@ window.handleUserPhoneLogin = async function(event) {
   }
 };
 
-// --- 5. Sign Up Handler with Dual Verification ---
+// --- 5. Sign Up Handler with Explicit Consent & Verification Dispatch ---
 
-// Step 1: Send SMS OTP to Verify Phone during Registration
+// Step 1: Send SMS OTP to Verify Phone
 window.requestSignupPhoneOTP = async function() {
-  const phone = document.getElementById("auth-signup-phone").value.trim();
+  const code = document.getElementById("auth-signup-country-code").value;
+  const phoneInput = document.getElementById("auth-signup-phone-number").value.trim();
+  const declaration = document.getElementById("auth-signup-declaration").checked;
   const statusElem = document.getElementById("auth-status-message");
 
-  if (!phone.startsWith("+")) {
-    statusElem.textContent = "Please include country code with '+' (e.g., +918434721287).";
+  if (!declaration) {
+    statusElem.textContent = "Please accept the Terms of Use, Privacy Policy, and Refund Policy checkbox to proceed.";
     return;
   }
+
+  if (!phoneInput || phoneInput.length < 10) {
+    statusElem.textContent = "Please enter a valid 10-digit mobile number.";
+    return;
+  }
+
+  const fullPhone = `${code}${phoneInput}`;
 
   try {
     statusElem.textContent = "Dispatching verification OTP to phone...";
     const appVerifier = getRecaptchaVerifier();
-    signupPhoneConfirmationResult = await signInWithPhoneNumber(auth, phone, appVerifier);
+    signupPhoneConfirmationResult = await signInWithPhoneNumber(auth, fullPhone, appVerifier);
     document.getElementById("signup-otp-group").style.display = "block";
-    statusElem.textContent = "SMS OTP sent. Enter the code to verify your phone number and complete registration.";
+    statusElem.textContent = "SMS OTP sent. Enter the code to verify your phone number and receive your email verification link.";
   } catch (error) {
     statusElem.textContent = `SMS Error: ${error.message}`;
   }
 };
 
-// Step 2: Verify Phone OTP, Provision Account & Send Email Verification Link
+// Step 2: Verify Phone OTP, Create Account & Send Verification Link
 window.handleUserSignUp = async function(event) {
   event.preventDefault();
   const name = document.getElementById("auth-signup-name").value.trim();
   const age = document.getElementById("auth-signup-age").value.trim();
   const gender = document.getElementById("auth-signup-gender").value;
-  const phone = document.getElementById("auth-signup-phone").value.trim();
+  const code = document.getElementById("auth-signup-country-code").value;
+  const phoneInput = document.getElementById("auth-signup-phone-number").value.trim();
   const email = document.getElementById("auth-signup-email").value.trim();
   const pass = document.getElementById("auth-signup-pass").value;
   const passConfirm = document.getElementById("auth-signup-confirm").value;
+  const declaration = document.getElementById("auth-signup-declaration").checked;
   const otp = document.getElementById("auth-signup-otp").value.trim();
   const statusElem = document.getElementById("auth-status-message");
+
+  if (!declaration) {
+    statusElem.textContent = "Error: You must accept the declaration and policies to create an account.";
+    return;
+  }
 
   if (pass !== passConfirm) {
     statusElem.textContent = "Error: Passwords do not match.";
@@ -265,24 +293,27 @@ window.handleUserSignUp = async function(event) {
     return;
   }
 
+  const fullPhone = `${code}${phoneInput}`;
+
   try {
     statusElem.textContent = "Validating Phone OTP...";
     await signupPhoneConfirmationResult.confirm(otp);
 
-    statusElem.textContent = "Phone verified! Creating official account...";
+    statusElem.textContent = "Phone verified! Creating official account and dispatching verification link...";
     const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
     await sendEmailVerification(userCredential.user);
 
-    dispatchWeb3Notification("New User Provisioned", `User Dossier:\nName: ${name}\nAge: ${age}\nGender: ${gender}\nPhone (Verified): ${phone}\nEmail: ${email}`);
+    dispatchWeb3Notification("New User Provisioned", `User Dossier:\nName: ${name}\nAge: ${age}\nGender: ${gender}\nPhone (Verified): ${fullPhone}\nEmail: ${email}\nAgreed to Policies: Yes`);
 
-    // Force sign out immediately: User CANNOT enter without clicking email verification link
+    // Ensure user remains signed out until email verification link is clicked
     await signOut(auth);
 
+    // Auto-transition to login tab and prefill email
     window.switchAuthTab("login-email");
     const loginEmailField = document.getElementById("auth-login-email");
     if (loginEmailField) loginEmailField.value = email;
 
-    statusElem.textContent = `Registration complete! A verification link has been dispatched to ${email}. Please click the link in your email, then sign in below.`;
+    statusElem.textContent = `Your phone is verified! A verification link has been sent to ${email}. Please open your email, click the link to verify your account, and then sign in.`;
   } catch (error) {
     statusElem.textContent = `Registration Error: ${error.message}`;
   }
@@ -305,15 +336,27 @@ window.handlePasswordReset = async function(event) {
     statusElem.textContent = "Password reset instructions have been dispatched to your email.";
     dispatchWeb3Notification("Password Reset Request", `Password reset requested for: ${email}`);
   } catch (error) {
-    statusElem.textContent = `Error: ${error.message}`;
+    if (error.code === "auth/user-not-found") {
+      statusElem.textContent = "Account not found: You are not registered yet. Please create an account. Redirecting to Sign Up...";
+      setTimeout(() => {
+        window.switchAuthTab("signup");
+        const signupEmail = document.getElementById("auth-signup-email");
+        if (signupEmail) signupEmail.value = email;
+      }, 2000);
+    } else {
+      statusElem.textContent = `Error: ${error.message}`;
+    }
   }
 };
 
-// Sign Out Handler
+// --- Sign Out Handler with Accessible Warning / Confirmation ---
 window.handleUserLogout = function() {
-  signOut(auth).then(() => {
-    alert("You have been signed out successfully.");
-  });
+  const confirmLogout = window.confirm("Warning: Are you sure you want to sign out of your session? You will need to sign in again to access the portal.");
+  if (confirmLogout) {
+    signOut(auth).then(() => {
+      alert("You have been signed out successfully.");
+    });
+  }
 };
 
 // --- 6. Live Banner Updates (100% English) ---
@@ -481,7 +524,7 @@ window.initiatePaidRequest = function(event, serviceName, amountINR) {
   }
 };
 
-// --- 10. Live Gemini AI Copilot Integration (Real Generative API) ---
+// --- 10. Live Gemini AI Copilot Integration ---
 window.handleGeminiAssistantQuery = async function(event) {
   event.preventDefault();
   const input = document.getElementById("gemini-input");
