@@ -3,96 +3,170 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resilience Industries Limited | Digital Accessibility & Assistive Tech Solutions</title>
+  <title>Resilience Industries Limited | Digital Accessibility & Assistive Tech Labs</title>
   
   <!-- SEO & Primary Meta Tags -->
-  <meta name="description" content="Resilience Industries Limited (RIL) - Enterprise digital accessibility consulting, WCAG 2.2 AA/AAA auditing, VPAT ACR reporting, and assistive technology solutions.">
-  <meta name="keywords" content="Accessibility, WCAG 2.2, VPAT, Screen Reader, NVDA, TalkBack, JAWS, Digital Inclusion, RIL, Nitesh Kumar">
+  <meta name="description" content="Resilience Industries Limited (RIL) - Enterprise digital accessibility consulting, WCAG 2.2 AAA auditing, VPAT ACR authoring, and assistive technology testing.">
+  <meta name="keywords" content="Accessibility, WCAG 2.2, Section 508, VPAT, Screen Reader, NVDA, TalkBack, JAWS, Digital Inclusion, Nitesh Kumar">
   <meta name="author" content="Nitesh Kumar">
+  <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0b3d91">
+  <link rel="canonical" href="https://resilience-industries.github.io/">
 
   <!-- Open Graph & Social Cards -->
-  <meta property="og:title" content="Resilience Industries Limited | Center for Digital Accessibility">
-  <meta property="og:description" content="World-class digital accessibility engineering, screen reader auditing, and compliance services.">
-  <meta property="og:url" content="https://resilience-industries.github.io/">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://resilience-industries.github.io/">
+  <meta property="og:title" content="Resilience Industries Limited | Accessibility Excellence">
+  <meta property="og:description" content="World-class digital accessibility engineering and manual assistive tech validation.">
+  <meta property="og:image" content="https://resilience-industries.github.io/assets/images/logo.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Resilience Industries Limited | Accessibility Labs">
+  <meta name="twitter:description" content="Auditing digital platforms for authentic WCAG 2.2 AAA compliance.">
+  <meta name="twitter:image" content="https://resilience-industries.github.io/assets/images/logo.png">
 
   <!-- Schema.org JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Resilience Industries Limited",
-    "url": "https://resilience-industries.github.io/",
-    "logo": "https://resilience-industries.github.io/assets/images/logo.png",
-    "founder": {
-      "@type": "Person",
-      "name": "Nitesh Kumar",
-      "sameAs": "https://www.linkedin.com/in/nitesh-kumar-AT"
-    },
-    "sameAs": [
-      "https://www.linkedin.com/company/resilience-industries-limited"
-    ],
-    "telephone": "+91-8434721287",
-    "email": "niteshkumar91845@gmail.com",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Masaurhi",
-      "addressRegion": "Bihar",
-      "postalCode": "804452",
-      "addressCountry": "IN"
-    },
-    "description": "Enterprise-grade digital accessibility consulting, WCAG 2.2 AAA conformance testing, and VPAT ACR production."
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://resilience-industries.github.io/#organization",
+        "name": "Resilience Industries Limited",
+        "url": "https://resilience-industries.github.io/",
+        "logo": "https://resilience-industries.github.io/assets/images/logo.png",
+        "founder": {
+          "@type": "Person",
+          "name": "Nitesh Kumar",
+          "sameAs": "https://www.linkedin.com/in/nitesh-kumar-AT"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/resilience-industries-limited",
+          "https://github.com/resilience-industries"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91-8434721287",
+          "contactType": "technical support",
+          "email": "niteshkumar91845@gmail.com"
+        }
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://resilience-industries.github.io/#service",
+        "name": "Resilience Industries Limited",
+        "url": "https://resilience-industries.github.io/",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Dinkar Nagar, Dahibhatta, Ward 1",
+          "addressLocality": "Masaurhi",
+          "addressRegion": "Bihar",
+          "postalCode": "804452",
+          "addressCountry": "IN"
+        },
+        "telephone": "+91-8434721287",
+        "priceRange": "$$"
+      }
+    ]
   }
   </script>
 
   <!-- External Stylesheet (0% Inline CSS) -->
   <link rel="stylesheet" href="style.css">
 
-  <!-- Third-Party SDKs (Razorpay & reCAPTCHA v3) -->
+  <!-- Third-Party SDKs (Razorpay & Google reCAPTCHA v3) -->
   <script src="https://checkout.razorpay.com/v1/checkout.js" defer></script>
   <script src="https://www.google.com/recaptcha/api.js?render=6Ldur_MtAAAAAGQlqUGYPk6103KttHViERKln2NF" async defer></script>
 
-  <!-- External JavaScript Engine (0% Inline JS) -->
+  <!-- Master External JavaScript Engine (0% Inline JS) -->
   <script type="module" src="script.js" defer></script>
 </head>
 <body>
 
-  <!-- 1. Skip Links for Screen Reader & Keyboard Navigation -->
+  <!-- Skip Links -->
   <a href="#main-content" class="skip-link">Skip to Main Content</a>
   <a href="#main-navigation" class="skip-link">Skip to Navigation Menu</a>
 
-  <!-- 2. Mandatory Auth Gate Modal (Enforced Authentication Wall) -->
+  <!-- Invisible Container for Firebase Phone reCAPTCHA -->
+  <div id="recaptcha-container"></div>
+
+  <!-- Mandatory Authentication Wall Modal -->
   <div id="auth-gate-modal" class="auth-gate-overlay" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title">
     <div class="auth-gate-box">
-      <h2 id="auth-modal-title" style="margin-bottom: 0.5rem;">Access Gateway | Resilience Industries</h2>
-      <p style="margin-bottom: 1.2rem; font-size: 0.95rem;">Please log in or create an account to access our research, auditing tools, courses, and client portals.</p>
+      <h2 id="auth-modal-title">Access Gateway | Resilience Industries</h2>
+      <p style="margin-bottom: 1.2rem; font-size: 0.95rem;">Please authenticate using Email or Mobile Phone to access our enterprise portal and auditing tools.</p>
       
-      <!-- Tab Controls -->
-      <div class="auth-tabs" role="tablist" aria-label="Authentication Options">
-        <button id="tab-btn-login" class="auth-tab-btn" role="tab" aria-selected="true" aria-controls="form-login-tab" onclick="switchAuthTab('login')">Sign In</button>
+      <!-- Authentication Tabs -->
+      <div class="auth-tabs" role="tablist" aria-label="Authentication Methods">
+        <button id="tab-btn-login-email" class="auth-tab-btn" role="tab" aria-selected="true" aria-controls="form-login-email-tab" onclick="switchAuthTab('login-email')">Email Sign In</button>
+        <button id="tab-btn-login-phone" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-login-phone-tab" onclick="switchAuthTab('login-phone')">Phone OTP Sign In</button>
         <button id="tab-btn-signup" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-signup-tab" onclick="switchAuthTab('signup')">Sign Up</button>
-        <button id="tab-btn-reset" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-reset-tab" onclick="switchAuthTab('reset')">Forgot Password?</button>
+        <button id="tab-btn-reset" class="auth-tab-btn" role="tab" aria-selected="false" aria-controls="form-reset-tab" onclick="switchAuthTab('reset')">Reset Password</button>
       </div>
 
-      <!-- Sign In Form -->
-      <form id="form-login-tab" role="tabpanel" aria-labelledby="tab-btn-login" onsubmit="handleUserLogin(event)">
+      <!-- Tab 1: Email + Password Login -->
+      <form id="form-login-email-tab" role="tabpanel" aria-labelledby="tab-btn-login-email" onsubmit="handleUserEmailLogin(event)">
         <div class="form-field">
           <label for="auth-login-email">Registered Email Address:</label>
-          <input type="email" id="auth-login-email" class="form-control" required autocomplete="email" placeholder="name@example.com">
+          <input type="email" id="auth-login-email" class="form-control" required autocomplete="email" placeholder="name@domain.com">
         </div>
         <div class="form-field">
           <label for="auth-login-pass">Password:</label>
           <input type="password" id="auth-login-pass" class="form-control" required autocomplete="current-password" placeholder="••••••••">
         </div>
-        <button type="submit" class="btn-primary" style="width: 100%;">Sign In</button>
+        <button type="submit" class="btn-primary" style="width: 100%;">Sign In with Password</button>
       </form>
 
-      <!-- Sign Up Form -->
+      <!-- Tab 2: Phone Number + SMS OTP Login -->
+      <form id="form-login-phone-tab" role="tabpanel" aria-labelledby="tab-btn-login-phone" style="display: none;" onsubmit="handleUserPhoneLogin(event)">
+        <div class="form-field">
+          <label for="auth-login-phone">Mobile Number (with +91):</label>
+          <input type="tel" id="auth-login-phone" class="form-control" placeholder="+91 8434721287" required>
+        </div>
+        <button type="button" id="btn-send-login-otp" class="btn-ctrl" style="margin-bottom: 1rem; width: 100%;" onclick="requestLoginPhoneOTP()">
+          Send Login SMS OTP
+        </button>
+
+        <div id="login-otp-group" style="display: none;">
+          <div class="form-field">
+            <label for="auth-login-otp">Enter 6-Digit SMS OTP:</label>
+            <input type="text" id="auth-login-otp" class="form-control" maxlength="6" placeholder="123456">
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">Verify OTP & Sign In</button>
+        </div>
+      </form>
+
+      <!-- Tab 3: Detailed Sign Up Form with Dual Verification -->
       <form id="form-signup-tab" role="tabpanel" aria-labelledby="tab-btn-signup" style="display: none;" onsubmit="handleUserSignUp(event)">
         <div class="form-field">
+          <label for="auth-signup-name">Full Name:</label>
+          <input type="text" id="auth-signup-name" class="form-control" required placeholder="John Doe">
+        </div>
+        <div style="display: flex; gap: 1rem;">
+          <div class="form-field" style="flex: 1;">
+            <label for="auth-signup-age">Age:</label>
+            <input type="number" id="auth-signup-age" class="form-control" required min="10" max="120" placeholder="24">
+          </div>
+          <div class="form-field" style="flex: 1;">
+            <label for="auth-signup-gender">Gender:</label>
+            <select id="auth-signup-gender" class="form-control" required>
+              <option value="">Select...</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-field">
+          <label for="auth-signup-phone">Mobile Number (with +91):</label>
+          <input type="tel" id="auth-signup-phone" class="form-control" required placeholder="+91 8434721287">
+        </div>
+        <div class="form-field">
           <label for="auth-signup-email">Official Email Address:</label>
-          <input type="email" id="auth-signup-email" class="form-control" required autocomplete="email" placeholder="name@example.com">
+          <input type="email" id="auth-signup-email" class="form-control" required autocomplete="email" placeholder="name@domain.com">
         </div>
         <div class="form-field">
           <label for="auth-signup-pass">Create Password:</label>
@@ -100,178 +174,206 @@
         </div>
         <div class="form-field">
           <label for="auth-signup-confirm">Confirm Password:</label>
-          <input type="password" id="auth-signup-confirm" class="form-control" required autocomplete="new-password" placeholder="Re-type password">
+          <input type="password" id="auth-signup-confirm" class="form-control" required autocomplete="new-password" placeholder="Re-enter password">
         </div>
-        <button type="submit" class="btn-primary" style="width: 100%;">Register & Send Verification Link</button>
+        
+        <button type="button" id="btn-send-signup-otp" class="btn-ctrl" style="margin-bottom: 1rem; width: 100%;" onclick="requestSignupPhoneOTP()">
+          Send Phone Verification OTP
+        </button>
+
+        <div id="signup-otp-group" style="display: none;">
+          <div class="form-field">
+            <label for="auth-signup-otp">Enter 6-Digit SMS OTP Received on Phone:</label>
+            <input type="text" id="auth-signup-otp" class="form-control" maxlength="6" placeholder="123456">
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">Verify Phone, Create Account & Send Email Link</button>
+        </div>
       </form>
 
-      <!-- Forgot Password / Reset Form -->
+      <!-- Tab 4: Password Reset Form -->
       <form id="form-reset-tab" role="tabpanel" aria-labelledby="tab-btn-reset" style="display: none;" onsubmit="handlePasswordReset(event)">
         <div class="form-field">
-          <label for="auth-reset-email">Enter Registered Email:</label>
-          <input type="email" id="auth-reset-email" class="form-control" required autocomplete="email" placeholder="name@example.com">
+          <label for="auth-reset-email">Registered Email Address:</label>
+          <input type="email" id="auth-reset-email" class="form-control" required autocomplete="email" placeholder="name@domain.com">
         </div>
-        <button type="submit" class="btn-primary" style="width: 100%;">Send Password Reset Link</button>
+        <button type="submit" class="btn-primary" style="width: 100%;">Dispatch Reset Link</button>
       </form>
 
-      <!-- Screen Reader Live Status Region -->
+      <!-- ARIA Live Status Notification -->
       <div id="auth-status-message" class="auth-status-alert" role="status" aria-live="polite"></div>
     </div>
   </div>
 
-  <!-- 3. Main Site Wrapper (Hidden Until Authentication Verified) -->
+  <!-- Main Website Wrapper (Rendered Only Upon Verified Session) -->
   <div id="main-site-wrapper" style="display: none;" aria-hidden="true">
 
     <!-- Banner Landmark -->
     <header role="banner">
       <div class="container">
+        
         <div class="banner-grid">
           
+          <!-- Brand Identity -->
           <div class="brand-section">
-            <img src="assets/images/logo.png" alt="Resilience Industries Limited Official Logo - Nitesh Kumar" class="company-logo" onerror="this.src='logo.png'; this.onerror=null;">
+            <img src="assets/images/logo.png" alt="Resilience Industries Limited Logo" class="company-logo" onerror="this.src='logo.png'; this.onerror=null;">
             <div>
               <h1 class="brand-title">Resilience Industries Limited</h1>
               <p class="brand-tagline">Center for Digital Accessibility, WCAG 2.2 AAA Compliance & Assistive Tech Labs</p>
             </div>
           </div>
 
-          <!-- Live Dynamic Info (Clock, Calendar, Weather, Greeting) -->
-          <div class="dynamic-banner-info" role="region" aria-label="Live Metrics and Greetings">
+          <!-- Dynamic Live Widget (100% English) -->
+          <div class="dynamic-banner-info" role="region" aria-label="Real-time Metrics">
             <div id="banner-greeting" class="banner-greeting-text">Welcome to Resilience Industries Limited</div>
             <div class="live-metrics-row">
-              <div>⏰ Time: <span id="live-clock">--:--:--</span></div>
-              <div>📅 <span id="live-calendar">Loading date...</span></div>
+              <div>⏰ <span id="live-clock">Time: --:--:--</span></div>
+              <div>📅 <span id="live-calendar">Loading calendar...</span></div>
             </div>
-            <div id="live-weather">Loading live weather data...</div>
+            <div id="live-weather">Fetching weather updates...</div>
           </div>
 
-          <!-- Accessibility Display Controls & Profile -->
-          <div class="a11y-controls-group" role="region" aria-label="Accessibility Settings">
-            <button id="btn-dark-mode" class="btn-ctrl" aria-pressed="false" onclick="toggleDarkMode()">🌓 Dark Mode</button>
-            <button id="btn-high-contrast" class="btn-ctrl" aria-pressed="false" onclick="toggleHighContrast()">👁️ High Contrast</button>
+          <!-- Display & Session Settings -->
+          <div class="a11y-controls-group" role="region" aria-label="User & Display Settings">
+            <button id="btn-dark-mode" class="btn-ctrl" aria-pressed="false" onclick="toggleDarkMode()">Dark Mode</button>
+            <button id="btn-high-contrast" class="btn-ctrl" aria-pressed="false" onclick="toggleHighContrast()">High Contrast</button>
             <button class="btn-ctrl" onclick="handleUserLogout()" style="color: #c0392b;">Sign Out</button>
           </div>
 
         </div>
-        <div id="user-session-greeting" style="margin-top: 0.6rem; font-size: 0.9rem; font-weight: 700;"></div>
+
+        <!-- Integrated Search Landmark & Navigation Expander in Banner -->
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1.2rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+          
+          <nav id="main-navigation" role="navigation" aria-label="Main Navigation">
+            <button id="menu-toggle-btn" class="btn-ctrl" aria-expanded="false" aria-controls="portal-nav-list" onclick="toggleNavigationMenu()">
+              Explore Pages Menu
+            </button>
+            <ul id="portal-nav-list" class="nav-links-list" style="display: none;">
+              <li><a href="index.html" aria-current="page">Home</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="audits.html">Accessibility Audits</a></li>
+              <li><a href="vpat.html">VPAT / ACR</a></li>
+              <li><a href="courses.html">Courses & Training</a></li>
+              <li><a href="tools.html">Tools & Labs</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="login.html">Login</a></li>
+              <li><a href="signup.html">Sign Up</a></li>
+              <li><a href="sitemap.html">Sitemap</a></li>
+              <li><a href="accessibility-statement.html">Accessibility Statement</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+            </ul>
+          </nav>
+
+          <section role="search" aria-label="Portal Search" style="flex: 1; max-width: 450px;">
+            <form onsubmit="event.preventDefault(); alert('Global search query submitted.');" style="display: flex; gap: 0.5rem;">
+              <label for="global-search-input" class="sr-only">Search Portal</label>
+              <input type="search" id="global-search-input" class="form-control" placeholder="Search audits, tools, standards..." required>
+              <button type="submit" class="btn-primary">Search</button>
+            </form>
+          </section>
+
+        </div>
+
+        <div id="user-session-greeting" style="margin-top: 0.5rem; font-size: 0.9rem; font-weight: 700;"></div>
       </div>
     </header>
-
-    <!-- Navigation Landmark (All 14 Official Pages) -->
-    <nav id="main-navigation" role="navigation" aria-label="Main Navigation">
-      <div class="container">
-        <ul class="nav-links-list">
-          <li><a href="index.html" aria-current="page">Home</a></li>
-          <li><a href="about.html">About Us</a></li>
-          <li><a href="services.html">Services</a></li>
-          <li><a href="audits.html">Accessibility Audits</a></li>
-          <li><a href="vpat.html">VPAT / ACR</a></li>
-          <li><a href="courses.html">Courses & Training</a></li>
-          <li><a href="tools.html">Tools & Labs</a></li>
-          <li><a href="faq.html">FAQ</a></li>
-          <li><a href="contact.html">Contact Us</a></li>
-          <li><a href="login.html">Login</a></li>
-          <li><a href="signup.html">Sign Up</a></li>
-          <li><a href="sitemap.html">Sitemap</a></li>
-          <li><a href="accessibility-statement.html">Accessibility Statement</a></li>
-          <li><a href="privacy-policy.html">Privacy Policy</a></li>
-        </ul>
-      </div>
-    </nav>
 
     <!-- Main Content Landmark -->
     <main id="main-content" role="main">
       <div class="container">
-        
-        <!-- Universal Search Landmark -->
-        <section role="search" aria-label="Site Search" style="margin-bottom: 2rem;">
-          <form class="form-field" onsubmit="event.preventDefault(); alert('Search results feature is processing.');">
-            <label for="global-search-input" class="sr-only">Search Website</label>
-            <div style="display: flex; gap: 0.5rem;">
-              <input type="search" id="global-search-input" class="form-control" placeholder="Search audits, VPAT, tools, courses, or compliance standards..." required>
-              <button type="submit" class="btn-primary" style="white-space: nowrap;">Search</button>
-            </div>
-          </form>
-        </section>
-
         <div class="main-layout-grid">
           
           <!-- Primary Content Column -->
           <div class="primary-column">
             
             <article class="card">
-              <h2>Certified Digital Accessibility Engineering & Compliance</h2>
+              <h2>Certified WCAG 2.2 AAA Digital Accessibility Engineering</h2>
               <p>
-                Resilience Industries Limited (RIL) delivers enterprise-grade accessibility engineering conforming to 
-                <strong>W3C WCAG 2.2 Levels A, AA, and AAA</strong> and <strong>W3C WAI-ARIA 1.2</strong> specifications.
+                Resilience Industries Limited (RIL) delivers premier web accessibility testing, manual assistive technology audits, 
+                and VPAT / ACR authoring complying with <strong>W3C WCAG 2.2 (A, AA, AAA)</strong> and <strong>Section 508</strong> standards.
               </p>
               <p style="margin-top: 0.8rem;">
-                Led by an AIIMS-certified, 100% blind accessibility specialist, our laboratory combines automated testing pipelines 
-                with rigorous native screen reader validation (TalkBack, NVDA, and JAWS) to eliminate digital barriers.
+                Our testing pipelines are led by a certified 100% blind accessibility specialist, guaranteeing authentic validation across native screen readers (TalkBack, NVDA, JAWS) alongside automated code auditing.
               </p>
             </article>
 
-            <!-- Core Services Overview -->
-            <section class="card" aria-labelledby="services-heading">
-              <h2 id="services-heading">Core Engineering Capabilities</h2>
+            <!-- Core Services Summary -->
+            <section class="card" aria-labelledby="services-overview-title">
+              <h2 id="services-overview-title">Core Competencies & Services</h2>
               <ul style="padding-left: 1.5rem; margin-top: 0.8rem;">
-                <li><strong>Comprehensive WCAG 2.2 AAA Auditing:</strong> Deep semantic DOM analysis, focus trap mitigation, and keyboard usability verification.</li>
-                <li><strong>VPAT / ACR Authoring:</strong> Section 508, EN 301 549, and global conformance reporting using ITI templates.</li>
-                <li><strong>Developer Remediation Code:</strong> Ready-to-commit source code solutions delivered directly via Jira tickets and GitHub pull requests.</li>
-                <li><strong>Assistive Tech Consulting:</strong> Specialized digital workflows optimized for low vision and blind professionals.</li>
+                <li><strong>Manual Screen Reader Auditing:</strong> Native TalkBack & NVDA exploratory and structural analysis.</li>
+                <li><strong>VPAT / ACR Production:</strong> Formal ITI standard compliance reporting for procurement.</li>
+                <li><strong>Remediation Engineering:</strong> Direct patch-level solutions for front-end development teams.</li>
+                <li><strong>Assistive Tech Consulting:</strong> Accessible workflow architecture for organizations.</li>
               </ul>
             </section>
 
-            <!-- Payment-First Service Request (Razorpay Integration) -->
-            <section class="card" aria-labelledby="instant-service-heading">
-              <h3 id="instant-service-heading">Book an Initial Accessibility Audit (Payment-First Workflow)</h3>
-              <p style="margin-bottom: 1rem;">Submit your platform for baseline compliance testing. Secure payment is verified before dispatching your request to our lead auditor.</p>
+            <!-- Paid Initial Audit Booking Card -->
+            <section class="card" aria-labelledby="book-audit-title">
+              <h3 id="book-audit-title">Request Baseline Accessibility Audit (Payment-First)</h3>
+              <p style="margin-bottom: 1rem;">Authorize a comprehensive exploratory assessment of your website. Secure transaction via Razorpay gateway.</p>
               
-              <form onsubmit="initiatePaidRequest(event, 'Initial Website Audit', 500)">
+              <form onsubmit="initiatePaidRequest(event, 'Baseline Accessibility Audit', 500)">
                 <div class="form-field">
-                  <label for="audit-site-url">Platform URL:</label>
-                  <input type="url" id="audit-site-url" name="client_url" class="form-control" required placeholder="https://example.com">
+                  <label for="audit-url">Website URL:</label>
+                  <input type="url" id="audit-url" name="client_url" class="form-control" required placeholder="https://domain.com">
                 </div>
                 <div class="form-field">
-                  <label for="audit-notes">Specific Testing Requirements:</label>
-                  <textarea id="audit-notes" name="client_notes" class="form-control" rows="3" placeholder="Provide URLs, scope of pages, or specific screen reader targets..."></textarea>
+                  <label for="audit-scope">Audit Requirements / Focus Area:</label>
+                  <textarea id="audit-scope" name="client_scope" class="form-control" rows="3" placeholder="Provide targets or scope..."></textarea>
                 </div>
-                <button type="submit" class="btn-primary">Pay & Book Initial Audit (₹500)</button>
+                <button type="submit" class="btn-primary">Pay & Book Baseline Audit (₹500)</button>
                 <div class="payment-status-msg" role="status" aria-live="polite" style="margin-top: 0.8rem; font-weight: 700;"></div>
               </form>
             </section>
 
           </div>
 
-          <!-- Complementary Landmark (Aside / Sidebar) -->
-          <aside role="complementary" aria-label="Quick Inquiries and Contact">
+          <!-- Complementary Landmark -->
+          <aside role="complementary" aria-label="Portal Inquiries & AI Assistant">
             
-            <!-- Quick Feedback & Suggestion Form (Web3Forms Universal Dispatch) -->
+            <!-- Gemini AI Assistant UI Widget -->
+            <div class="card" style="border: 2px solid var(--primary-color);">
+              <h3>RIL AI Accessibility Copilot</h3>
+              <p style="font-size: 0.95rem; margin-bottom: 0.8rem;">Instant W3C WCAG 2.2 query resolution powered by Gemini:</p>
+              <div id="gemini-chat-log" role="log" aria-live="polite" style="height: 140px; overflow-y: auto; background: var(--bg-color); border: 1px solid var(--border-color); padding: 0.6rem; border-radius: 4px; font-size: 0.9rem; margin-bottom: 0.6rem;">
+                <div><strong>Assistant:</strong> Hello! Ask any WCAG 2.2 compliance or remediation question.</div>
+              </div>
+              <form onsubmit="handleGeminiAssistantQuery(event)" style="display: flex; gap: 0.4rem;">
+                <label for="gemini-input" class="sr-only">Ask Gemini AI</label>
+                <input type="text" id="gemini-input" class="form-control" placeholder="Ask about WCAG..." required style="font-size: 0.9rem;">
+                <button type="submit" class="btn-primary" style="padding: 0.5rem 0.8rem; font-size: 0.9rem;">Ask</button>
+              </form>
+            </div>
+
+            <!-- Quick Inquiry Card -->
             <div class="card">
-              <h3>Direct Feedback & Tool Requests</h3>
-              <p style="font-size: 0.95rem; margin-bottom: 1rem;">Share your feature requests, bugs, or accessibility suggestions directly with our engineering team:</p>
+              <h3>Technical Inquiries</h3>
+              <p style="font-size: 0.95rem; margin-bottom: 1rem;">Submit bug reports, feature suggestions, or consultations directly to engineering:</p>
               
-              <form onsubmit="submitUniversalForm(event, 'Homepage Quick Feedback')">
+              <form onsubmit="submitUniversalForm(event, 'Quick Homepage Inquiry')">
                 <div class="form-field">
-                  <label for="fb-name">Full Name:</label>
-                  <input type="text" id="fb-name" name="name" class="form-control" required>
+                  <label for="inq-name">Your Name:</label>
+                  <input type="text" id="inq-name" name="name" class="form-control" required>
                 </div>
                 <div class="form-field">
-                  <label for="fb-msg">Your Message / Feedback:</label>
-                  <textarea id="fb-msg" name="message" class="form-control" rows="3" required></textarea>
+                  <label for="inq-message">Message:</label>
+                  <textarea id="inq-message" name="message" class="form-control" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn-primary" style="width: 100%;">Submit Message</button>
+                <button type="submit" class="btn-primary" style="width: 100%;">Transmit Message</button>
                 <div class="form-status-msg" role="status" aria-live="polite" style="margin-top: 0.8rem; font-weight: 700;"></div>
               </form>
             </div>
 
-            <!-- Official Contact Card -->
+            <!-- Official Identity -->
             <div class="card">
               <h3>Official Contact</h3>
-              <p><strong>Nitesh Kumar</strong><br>Founder & Lead Accessibility Analyst</p>
-              <p style="margin-top: 0.6rem;">📞 <a href="tel:+918434721287" style="color: var(--primary-color);">+91 8434721287</a></p>
-              <p>✉️ <a href="mailto:niteshkumar91845@gmail.com" style="color: var(--primary-color); word-break: break-all;">niteshkumar91845@gmail.com</a></p>
-              <p style="margin-top: 0.6rem;">📍 Dinkar Nagar, Dahibhatta, Ward 1, Masaurhi, Patna, Bihar - 804452</p>
+              <p><strong>Nitesh Kumar</strong><br>Founder & Lead Accessibility Specialist</p>
+              <p style="margin-top: 0.6rem;">Phone: <a href="tel:+918434721287" style="color: var(--primary-color);">+91 8434721287</a></p>
+              <p>Email: <a href="mailto:niteshkumar91845@gmail.com" style="color: var(--primary-color); word-break: break-all;">niteshkumar91845@gmail.com</a></p>
+              <p style="margin-top: 0.6rem;">Address: Dinkar Nagar, Dahibhatta, Ward 1, Masaurhi, Patna, Bihar - 804452</p>
             </div>
 
           </aside>
@@ -286,10 +388,10 @@
         
         <div class="footer-grid">
           
-          <!-- Live Analytics Dashboard Card -->
-          <div class="analytics-widget" role="region" aria-label="Public Web Analytics">
-            <h3>Public Web Analytics</h3>
-            <p style="font-size: 0.9rem; margin-bottom: 0.6rem;">Real-time visitor and page engagement metrics:</p>
+          <!-- Real-Time Public Analytics -->
+          <div class="analytics-widget" role="region" aria-label="Public Usage Analytics">
+            <h3>Public Usage Analytics</h3>
+            <p style="font-size: 0.9rem; margin-bottom: 0.6rem;">Real-time transparency statistics:</p>
             <div class="analytics-stat-row">
               <span>Total Pageviews:</span>
               <span id="analytics-pageviews" class="analytics-stat-val">0</span>
@@ -304,9 +406,9 @@
             </div>
           </div>
 
-          <!-- Legal & Compliance Links -->
+          <!-- Compliance & Legal Navigation -->
           <div>
-            <h3>Legal & Compliance</h3>
+            <h3>Policies & Compliance</h3>
             <ul style="list-style: none; margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.4rem;">
               <li><a href="terms.html" style="color: var(--text-color);">Terms of Use</a></li>
               <li><a href="privacy-policy.html" style="color: var(--text-color);">Privacy Policy</a></li>
@@ -316,20 +418,20 @@
             </ul>
           </div>
 
-          <!-- Verified Social Media & Repository -->
+          <!-- Verified Channels -->
           <div>
             <h3>Official Channels</h3>
             <ul style="list-style: none; margin-top: 0.6rem; display: flex; flex-direction: column; gap: 0.4rem;">
-              <li><a href="https://www.linkedin.com/company/resilience-industries-limited" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">LinkedIn Company Page</a></li>
+              <li><a href="https://www.linkedin.com/company/resilience-industries-limited" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">LinkedIn Organization</a></li>
               <li><a href="https://www.linkedin.com/in/nitesh-kumar-AT" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">LinkedIn Personal Profile</a></li>
-              <li><a href="https://github.com/resilience-industries/resilience-industries.github.io" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">GitHub Repository</a></li>
+              <li><a href="https://github.com/resilience-industries/resilience-industries.github.io" target="_blank" rel="noopener noreferrer" style="color: var(--text-color);">GitHub Source Repository</a></li>
             </ul>
           </div>
 
         </div>
 
         <div class="copyright-bar">
-          <p>&copy; 2026 Resilience Industries Limited. All Rights Reserved. Conforming to WCAG 2.2 AAA & W3C WAI-ARIA 1.2 Standards.</p>
+          <p>&copy; 2026 Resilience Industries Limited. All Rights Reserved. Engineered strictly to WCAG 2.2 AAA & WAI-ARIA 1.2 Standards.</p>
         </div>
 
       </div>
